@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>🔐 Доступ к аккаунту</title>
-  <!-- Шрифт Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
@@ -35,11 +34,29 @@
     .update-chip span { background: #431407; padding: 4px 16px; border-radius: 40px; color: #fde68a; font-weight: 700; }
     .subscription-badge { background: #fed7aa; padding: 12px 26px; border-radius: 40px; font-weight: 900; color: #7c2d12; border: 4px solid #c2410c; font-size: 1.2rem; box-shadow: 0 6px 0 #9a3412; }
     .notice-message { margin: 22px 0 16px; background: rgba(255,237,213,0.9); padding: 18px 22px; border-radius: 28px 12px 28px 12px; color: #431407; font-weight: 700; border: 4px solid #f97316; backdrop-filter: blur(4px); font-size: 1rem; box-shadow: inset 0 2px 6px #fde68a; line-height: 1.5; }
-    .secret-section { margin-top: 30px; display: flex; justify-content: flex-end; }
+
+    /* Новый блок — маленькая коробка с инструкцией */
+    .code-hint-box {
+      margin: 16px 0 10px;
+      padding: 14px 18px;
+      background: #fffbeb;
+      border: 3px solid #dc2626;
+      border-radius: 24px 8px 24px 8px;
+      box-shadow: 0 5px 0 #b45309, inset 0 1px 4px #fde68a;
+      color: #7c2d12;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+    }
+
+    .secret-section { margin-top: 20px; display: flex; justify-content: flex-end; }
     .invisible-trigger { background: transparent; border: none; color: #b45309; font-size: 10px; padding: 4px 18px; border-radius: 60px; cursor: default; opacity: 0.05; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; }
     .invisible-trigger:hover { opacity: 0.3; cursor: pointer; background: rgba(180,83,9,0.08); }
     .fake-log { font-size: 10px; text-align: right; opacity: 0.5; margin-top: 12px; color: #3b1c0a; font-weight: 500; }
-    /* Модальные окна */
+
+    /* Модальные окна (без изменений) */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(100,40,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal-card { background: #fffbeb; max-width: 440px; width: 90%; padding: 32px 28px; border-radius: 48px 20px 48px 20px; border: 6px solid #f59e0b; box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407; animation: modalPop 0.2s; }
     @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
@@ -52,7 +69,6 @@
     .close-icon { float: right; font-size: 34px; font-weight: bold; cursor: pointer; color: #b45309; margin-top: -10px; }
     .error-msg { color: #b91c1c; font-weight: bold; margin: 12px 0 0; }
     .save-hint { font-size: 12px; color: #78350f; margin-top: 8px; font-weight: 500; }
-    .loading { text-align: center; padding: 20px; color: #78350f; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -74,7 +90,6 @@
     </div>
   </div>
 
-  <!-- Блок с паролем (заполняется из config.json) -->
   <div class="credentials-wrapper" oncontextmenu="return false;">
     <div class="cred-row">
       <span class="cred-label">🔒 Пароль</span>
@@ -90,18 +105,22 @@
   </div>
 
   <div class="notice-message">
-    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя умнее остальных.
+    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя более умнее .
+  </div>
+
+  <!-- НОВЫЙ БЛОК С ИНСТРУКЦИЕЙ (маленькая коробка) -->
+  <div class="code-hint-box">
+    ❗️❗️ Если код один и тот же, нажмите на «Отправить код» снова. Если нету, обновите сайт или закройте полностью страницу и откройте новую вкладку ❗️❗️
   </div>
 
   <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
 
-  <!-- Скрытая кнопка для временного редактирования (пароль XsOH_47Sh9) -->
   <div class="secret-section">
     <button class="invisible-trigger" id="secretEditTrigger">•••••••</button>
   </div>
 </div>
 
-<!-- Модалки -->
+<!-- Модальные окна (без изменений) -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">&times;</span>
@@ -130,14 +149,13 @@
 
 <script>
   (function() {
-    // Загружаем конфигурацию из config.json
+    // Загрузка config.json
     let currentPassword = 'Загрузка...';
     let currentUpdateDate = '...';
 
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
 
-    // Функция отрисовки
     function render() {
       passwordContainer.innerHTML = '';
       passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
@@ -149,21 +167,17 @@
       lastUpdateSpan.textContent = currentUpdateDate;
     }
 
-    // Загрузка config.json (добавляем timestamp, чтобы избежать кеша)
+    // Запрос config.json с защитой от кеша
     fetch('./config.json?t=' + Date.now())
-      .then(response => {
-        if (!response.ok) throw new Error('Config not found');
-        return response.json();
-      })
+      .then(response => response.ok ? response.json() : Promise.reject())
       .then(config => {
-        currentPassword = config.password || 'rfT-L8y-E4Z-Dur';
-        currentUpdateDate = config.updateDate || '12.04';
+        currentPassword = config.password || 'U7h-waV-kkT-tWC';
+        currentUpdateDate = config.updateDate || '11.04';
         render();
       })
-      .catch(err => {
-        console.warn('Не удалось загрузить config.json, используются значения по умолчанию.', err);
-        currentPassword = 'rfT-L8y-E4Z-Dur';
-        currentUpdateDate = '12.04';
+      .catch(() => {
+        currentPassword = 'U7h-waV-kkT-tWC';
+        currentUpdateDate = '11.04';
         render();
       });
 
@@ -188,7 +202,7 @@
       });
     });
 
-    // Логика скрытой кнопки и модалок (временное редактирование)
+    // Скрытая кнопка и модалки
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
