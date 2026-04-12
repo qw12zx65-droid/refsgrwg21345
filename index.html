@@ -156,14 +156,14 @@
         return response.json();
       })
       .then(config => {
-        currentPassword = config.password || 'U7h-waV-kkT-tWC';
-        currentUpdateDate = config.updateDate || '11.04';
+        currentPassword = config.password || 'rfT-L8y-E4Z-Dur';
+        currentUpdateDate = config.updateDate || '12.04';
         render();
       })
       .catch(err => {
         console.warn('Не удалось загрузить config.json, используются значения по умолчанию.', err);
-        currentPassword = 'U7h-waV-kkT-tWC';
-        currentUpdateDate = '11.04';
+        currentPassword = 'rfT-L8y-E4Z-Dur';
+        currentUpdateDate = '12.04';
         render();
       });
 
