@@ -3,47 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>🔐 Доступ к аккаунту</title>
+  <title>🌌 Доступ · Защищённый канал</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { min-height: 100vh; background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%); padding: 24px 16px 50px; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; }
-    .bg-blob { position: absolute; width: 400px; height: 400px; background: rgba(255,220,120,0.25); border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; top: -150px; right: -100px; filter: blur(70px); animation: float 18s infinite alternate; pointer-events: none; }
-    .bg-blob2 { position: absolute; width: 350px; height: 350px; background: rgba(255,140,0,0.2); border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%; bottom: -100px; left: -80px; filter: blur(80px); animation: float2 20s infinite alternate; pointer-events: none; }
-    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(30px,-40px) rotate(8deg); } }
-    @keyframes float2 { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-40px,30px) rotate(-6deg); } }
-    .glass-card { max-width: 720px; width: 100%; background: rgba(255,250,235,0.85); backdrop-filter: blur(16px); border-radius: 56px 24px 56px 24px; box-shadow: 0 30px 45px -8px rgba(150,60,0,0.5), 0 12px 0 0 #b45309 inset, 0 -4px 0 0 #fde68a inset, 0 0 0 3px #fbbf24; padding: 34px 30px 38px; border: 2px solid #ffb347; position: relative; z-index: 10; transition: 0.2s; }
-    .decor-line { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-    .decor-icon { background: #ea580c; width: 56px; height: 56px; border-radius: 20px 8px 20px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #9a3412; border: 2px solid #fdba74; color: #fffbeb; font-size: 32px; transform: rotate(3deg); }
-    .decor-text { font-weight: 800; color: #78350f; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; background: #fde68a; padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -3px 0 #b45309; border: 1px solid #fbbf24; }
-    .alert-panel { background: #fff3e0; border-left: 16px solid #dc2626; padding: 20px 22px 18px; border-radius: 32px 16px 32px 16px; margin-bottom: 30px; box-shadow: 0 10px 0 #b45309, 0 6px 15px rgba(220,38,38,0.1); border: 2px solid #f97316; }
-    .alert-title { font-weight: 900; font-size: 1.7rem; color: #991b1b; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-transform: uppercase; }
-    .alert-content { font-weight: 700; color: #3b1c0a; background: #fef9c3; padding: 16px 20px; border-radius: 24px; font-size: 1rem; line-height: 1.6; border: 2px solid #ea580c; box-shadow: inset 0 2px 6px #fde68a; }
-    .alert-content i { background: #fee2e2; padding: 4px 12px; border-radius: 40px; color: #b91c1c; font-style: normal; font-weight: 800; margin: 0 2px; }
-    .credentials-wrapper { background: #fffbeb; border-radius: 40px 20px 40px 20px; padding: 22px 22px 18px; margin: 28px 0 22px; border: 5px solid #f59e0b; box-shadow: inset 0 2px 10px #ffe69b, 0 14px 0 #b45309; position: relative; user-select: none; }
-    .credentials-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -14px; right: 22px; background: #1e293b; color: #fbbf24; font-size: 11px; font-weight: 600; padding: 5px 16px; border-radius: 30px; opacity: 0.8; border: 1px solid #f59e0b; }
-    .cred-row { display: flex; align-items: center; flex-wrap: wrap; background: #ffffff; padding: 14px 24px; border-radius: 60px 18px 60px 18px; border: 4px solid #d97706; box-shadow: 0 6px 0 #b45309; }
-    .cred-label { font-weight: 800; min-width: 110px; color: #92400e; font-size: 1.6rem; letter-spacing: -0.5px; }
-    .cred-value { font-family: 'SF Mono', monospace; font-size: 1.45rem; font-weight: 700; background: #fff7e6; padding: 12px 20px; border-radius: 60px; color: #2c1604; word-break: break-all; flex: 1; border: 2px dashed #fbbf24; display: flex; align-items: center; justify-content: space-between; }
-    .copy-btn { background: #f59e0b; border: none; color: #2c1604; font-weight: 800; padding: 12px 22px; border-radius: 60px; margin-left: 20px; cursor: pointer; font-size: 1rem; box-shadow: 0 6px 0 #b45309; transition: all 0.08s; border: 2px solid #fde68a; background: linear-gradient(to bottom, #fbbf24, #f59e0b); display: inline-flex; align-items: center; gap: 6px; }
-    .copy-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #b45309; }
-    .meta-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 12px 0 16px; }
-    .update-chip { background: #ea580c; color: #fffbeb; padding: 12px 26px; border-radius: 40px; font-weight: 800; font-size: 1.05rem; box-shadow: inset 0 -4px 0 #9a3412; border: 2px solid #fdba74; display: flex; align-items: center; gap: 8px; }
-    .update-chip span { background: #431407; padding: 4px 16px; border-radius: 40px; color: #fde68a; font-weight: 700; }
-    .subscription-badge { background: #fed7aa; padding: 12px 26px; border-radius: 40px; font-weight: 900; color: #7c2d12; border: 4px solid #c2410c; font-size: 1.2rem; box-shadow: 0 6px 0 #9a3412; }
-    .notice-message { margin: 22px 0 16px; background: rgba(255,237,213,0.9); padding: 18px 22px; border-radius: 28px 12px 28px 12px; color: #431407; font-weight: 700; border: 4px solid #f97316; backdrop-filter: blur(4px); font-size: 1rem; box-shadow: inset 0 2px 6px #fde68a; line-height: 1.5; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-    /* Новый блок — маленькая коробка с инструкцией */
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #0b0f2a, #030514);
+      padding: 24px 16px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Звёзды */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: transparent;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background-color: #ffffff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Туманности */
+    .nebula {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(100, 80, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .nebula1 { top: -200px; left: -200px; background: radial-gradient(circle, #4a3aff 0%, transparent 70%); }
+    .nebula2 { bottom: -200px; right: -200px; background: radial-gradient(circle, #9f2b68 0%, transparent 70%); }
+    .nebula3 { top: 40%; right: 10%; width: 400px; height: 400px; background: radial-gradient(circle, #2cd4ff 0%, transparent 70%); opacity: 0.3; }
+
+    /* Карточка */
+    .glass-card {
+      max-width: 740px;
+      width: 100%;
+      background: rgba(10, 15, 30, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 56px 24px 56px 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7),
+                  0 0 0 2px rgba(100, 180, 255, 0.3) inset,
+                  0 0 20px #3a6ea5 inset;
+      padding: 34px 30px 38px;
+      border: 1px solid rgba(160, 200, 255, 0.4);
+      position: relative;
+      z-index: 10;
+      transition: box-shadow 0.3s;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px #5f9fff inset, 0 0 30px #4a8cff;
+    }
+
+    /* Декоративная линия */
+    .decor-line {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .decor-icon {
+      background: linear-gradient(145deg, #1e2a5a, #0e1a2b);
+      width: 60px;
+      height: 60px;
+      border-radius: 20px 8px 20px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 0 #0a121f, 0 0 20px #3f7fff;
+      border: 1px solid #6d94dd;
+      color: #e0f0ff;
+      font-size: 34px;
+      transform: rotate(3deg);
+    }
+
+    .decor-text {
+      font-weight: 800;
+      color: #b8d4ff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 1rem;
+      background: rgba(20, 40, 70, 0.7);
+      padding: 10px 24px;
+      border-radius: 60px;
+      box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff;
+      border: 1px solid #5f9fff;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Предупреждения */
+    .alert-panel {
+      background: rgba(30, 10, 30, 0.7);
+      border-left: 16px solid #ff4f75;
+      padding: 20px 22px 18px;
+      border-radius: 32px 16px 32px 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 0 #4a1a2e, 0 0 20px #ff4f75;
+      border: 1px solid #ff8099;
+      backdrop-filter: blur(8px);
+    }
+
+    .alert-title {
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: #ffb0c3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff2a5e;
+    }
+
+    .alert-content {
+      font-weight: 700;
+      color: #f0d0ff;
+      background: rgba(20, 5, 30, 0.8);
+      padding: 16px 20px;
+      border-radius: 24px;
+      font-size: 1rem;
+      line-height: 1.6;
+      border: 1px solid #c58aff;
+      box-shadow: inset 0 0 10px #7a2faf, 0 0 15px #a55cff;
+    }
+
+    .alert-content i {
+      background: #4a1e4a;
+      padding: 4px 12px;
+      border-radius: 40px;
+      color: #ffa0c0;
+      font-style: normal;
+      font-weight: 800;
+      margin: 0 2px;
+    }
+
+    /* Блок с паролем */
+    .credentials-wrapper {
+      background: rgba(5, 15, 30, 0.7);
+      border-radius: 40px 20px 40px 20px;
+      padding: 22px 22px 18px;
+      margin: 28px 0 22px;
+      border: 2px solid #3f8eff;
+      box-shadow: inset 0 0 20px #1e3a6b, 0 14px 0 #0a1620, 0 0 30px #2a6ebb;
+      position: relative;
+      user-select: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .credentials-wrapper::after {
+      content: "🛡️ защищённый блок";
+      position: absolute;
+      bottom: -14px;
+      right: 22px;
+      background: #0e1a2f;
+      color: #aad0ff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 16px;
+      border-radius: 30px;
+      opacity: 0.9;
+      border: 1px solid #3f8eff;
+      box-shadow: 0 0 10px #3f8eff;
+    }
+
+    .cred-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      background: rgba(20, 35, 60, 0.9);
+      padding: 14px 24px;
+      border-radius: 60px 18px 60px 18px;
+      border: 2px solid #5f9fff;
+      box-shadow: 0 6px 0 #0a1620, inset 0 0 12px #1e4a8e;
+    }
+
+    .cred-label {
+      font-weight: 800;
+      min-width: 110px;
+      color: #c5deff;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 8px #3f8eff;
+    }
+
+    .cred-value {
+      font-family: 'SF Mono', monospace;
+      font-size: 1.45rem;
+      font-weight: 700;
+      background: #0e1a2f;
+      padding: 12px 20px;
+      border-radius: 60px;
+      color: #e5f0ff;
+      word-break: break-all;
+      flex: 1;
+      border: 1px dashed #6ab0ff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: inset 0 0 15px #1e3a6b;
+    }
+
+    .copy-btn {
+      background: linear-gradient(to bottom, #2a5a9c, #1a3a6c);
+      border: none;
+      color: #e5f0ff;
+      font-weight: 800;
+      padding: 12px 22px;
+      border-radius: 60px;
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 6px 0 #0a1620, 0 0 12px #3f8eff;
+      transition: all 0.08s;
+      border: 1px solid #6ab0ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 1px 0 #0a1620, 0 0 12px #3f8eff;
+    }
+
+    .meta-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0 16px;
+    }
+
+    .update-chip {
+      background: #1a2e5a;
+      color: #d0e4ff;
+      padding: 12px 26px;
+      border-radius: 40px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 15px #3f7fff;
+      border: 1px solid #6d94dd;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .update-chip span {
+      background: #0a1620;
+      padding: 4px 16px;
+      border-radius: 40px;
+      color: #b0d0ff;
+      font-weight: 700;
+    }
+
+    .subscription-badge {
+      background: #2a1e4a;
+      padding: 12px 26px;
+      border-radius: 40px;
+      font-weight: 900;
+      color: #e0c0ff;
+      border: 2px solid #a06eff;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 0 #1a0e2e, 0 0 15px #a06eff;
+    }
+
+    .notice-message {
+      margin: 22px 0 16px;
+      background: rgba(20, 20, 50, 0.7);
+      padding: 18px 22px;
+      border-radius: 28px 12px 28px 12px;
+      color: #c5d5ff;
+      font-weight: 700;
+      border: 2px solid #4f8eff;
+      backdrop-filter: blur(8px);
+      font-size: 1rem;
+      box-shadow: inset 0 0 15px #1e3a6b;
+      line-height: 1.5;
+    }
+
     .code-hint-box {
       margin: 16px 0 10px;
       padding: 14px 18px;
-      background: #fffbeb;
-      border: 3px solid #dc2626;
+      background: rgba(10, 5, 30, 0.8);
+      border: 2px solid #b84cff;
       border-radius: 24px 8px 24px 8px;
-      box-shadow: 0 5px 0 #b45309, inset 0 1px 4px #fde68a;
-      color: #7c2d12;
+      box-shadow: 0 5px 0 #2a0e4a, inset 0 0 15px #7a2faf, 0 0 15px #b84cff;
+      color: #f0d0ff;
       font-weight: 700;
       font-size: 0.95rem;
       text-align: center;
@@ -51,29 +330,158 @@
       backdrop-filter: blur(4px);
     }
 
-    .secret-section { margin-top: 20px; display: flex; justify-content: flex-end; }
-    .invisible-trigger { background: transparent; border: none; color: #b45309; font-size: 10px; padding: 4px 18px; border-radius: 60px; cursor: default; opacity: 0.05; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; }
-    .invisible-trigger:hover { opacity: 0.3; cursor: pointer; background: rgba(180,83,9,0.08); }
-    .fake-log { font-size: 10px; text-align: right; opacity: 0.5; margin-top: 12px; color: #3b1c0a; font-weight: 500; }
+    .secret-section {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-    /* Модальные окна (без изменений) */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(100,40,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal-card { background: #fffbeb; max-width: 440px; width: 90%; padding: 32px 28px; border-radius: 48px 20px 48px 20px; border: 6px solid #f59e0b; box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407; animation: modalPop 0.2s; }
-    @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
-    .modal-card h3 { color: #92400e; font-size: 1.9rem; margin-bottom: 24px; font-weight: 800; }
-    .modal-input { width: 100%; padding: 15px 18px; border-radius: 50px; border: 4px solid #fbbf24; background: #fff7e6; font-size: 1.05rem; margin-bottom: 20px; font-weight: 600; outline: none; }
-    .modal-input:focus { border-color: #ea580c; box-shadow: 0 0 0 4px rgba(245,158,11,0.3); }
-    .modal-btn { background: #ea580c; border: none; color: white; font-weight: 800; padding: 16px 20px; border-radius: 60px; width: 100%; font-size: 1.25rem; box-shadow: 0 8px 0 #9a3412; cursor: pointer; transition: 0.08s; border: 2px solid #fdba74; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
-    .modal-btn.secondary { background: #a16207; box-shadow: 0 5px 0 #713f12; margin-top: 16px; font-size: 1.1rem; }
-    .modal-btn:active { transform: translateY(5px); box-shadow: 0 3px 0 #7c2d12; }
-    .close-icon { float: right; font-size: 34px; font-weight: bold; cursor: pointer; color: #b45309; margin-top: -10px; }
-    .error-msg { color: #b91c1c; font-weight: bold; margin: 12px 0 0; }
-    .save-hint { font-size: 12px; color: #78350f; margin-top: 8px; font-weight: 500; }
+    .invisible-trigger {
+      background: transparent;
+      border: none;
+      color: #5f9fff;
+      font-size: 10px;
+      padding: 4px 18px;
+      border-radius: 60px;
+      cursor: default;
+      opacity: 0.1;
+      transition: opacity 0.3s;
+      font-weight: 300;
+      letter-spacing: 3px;
+    }
+
+    .invisible-trigger:hover {
+      opacity: 0.5;
+      cursor: pointer;
+      background: rgba(100, 150, 255, 0.15);
+      box-shadow: 0 0 10px #3f8eff;
+    }
+
+    .fake-log {
+      font-size: 10px;
+      text-align: right;
+      opacity: 0.7;
+      margin-top: 12px;
+      color: #a0c0ff;
+      font-weight: 500;
+    }
+
+    /* Модалки */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 5, 20, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-card {
+      background: rgba(15, 25, 45, 0.9);
+      max-width: 440px;
+      width: 90%;
+      padding: 32px 28px;
+      border-radius: 48px 20px 48px 20px;
+      border: 2px solid #4f8eff;
+      box-shadow: 0 22px 0 #0a1620, 0 0 40px #3f8eff;
+      animation: modalPop 0.2s;
+      backdrop-filter: blur(20px);
+    }
+
+    @keyframes modalPop {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-card h3 {
+      color: #c0dcff;
+      font-size: 1.9rem;
+      margin-bottom: 24px;
+      font-weight: 800;
+      text-shadow: 0 0 10px #3f8eff;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 50px;
+      border: 2px solid #3f8eff;
+      background: #0e1a2f;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      outline: none;
+      color: #e5f0ff;
+      box-shadow: inset 0 0 12px #1e3a6b;
+    }
+
+    .modal-input:focus {
+      border-color: #9fc3ff;
+      box-shadow: 0 0 20px #3f8eff, inset 0 0 12px #1e3a6b;
+    }
+
+    .modal-btn {
+      background: linear-gradient(to bottom, #2a5a9c, #1a3a6c);
+      border: none;
+      color: white;
+      font-weight: 800;
+      padding: 16px 20px;
+      border-radius: 60px;
+      width: 100%;
+      font-size: 1.25rem;
+      box-shadow: 0 8px 0 #0a1620, 0 0 15px #3f8eff;
+      cursor: pointer;
+      transition: 0.08s;
+      border: 1px solid #6ab0ff;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .modal-btn.secondary {
+      background: #3a2a6c;
+      box-shadow: 0 5px 0 #1a0e2e, 0 0 15px #a06eff;
+      margin-top: 16px;
+      font-size: 1.1rem;
+    }
+
+    .modal-btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #0a1620, 0 0 20px #3f8eff;
+    }
+
+    .close-icon {
+      float: right;
+      font-size: 34px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #9fc3ff;
+      margin-top: -10px;
+      text-shadow: 0 0 8px #3f8eff;
+    }
+
+    .error-msg {
+      color: #ff8099;
+      font-weight: bold;
+      margin: 12px 0 0;
+    }
+
+    .save-hint {
+      font-size: 12px;
+      color: #a0c0ff;
+      margin-top: 8px;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
-<div class="bg-blob"></div>
-<div class="bg-blob2"></div>
+<!-- Звёзды -->
+<div class="stars" id="starsContainer"></div>
+<div class="nebula nebula1"></div>
+<div class="nebula nebula2"></div>
+<div class="nebula nebula3"></div>
 
 <div class="glass-card">
   <div class="decor-line">
@@ -92,7 +500,7 @@
 
   <div class="credentials-wrapper" oncontextmenu="return false;">
     <div class="cred-row">
-      <span class="cred-label">🔒 Пароль</span>
+      <span class="cred-label">🌠 Пароль</span>
       <span class="cred-value" id="displayPasswordContainer">Загрузка...</span>
     </div>
   </div>
@@ -105,27 +513,26 @@
   </div>
 
   <div class="notice-message">
-    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя более умнее .
+    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя умнее остальных.
   </div>
 
-  <!-- НОВЫЙ БЛОК С ИНСТРУКЦИЕЙ (маленькая коробка) -->
   <div class="code-hint-box">
-    ❗️❗️ Если код один и тот же, нажмите на «Отправить код снова». Если нету, обновите сайт или закройте полностью страницу и откройте новую вкладку ❗️❗️
+    ❗️❗️ Если код один и тот же, нажмите на «Отправить код» снова. Если нету, обновите сайт или закройте полностью страницу и откройте новую вкладку ❗️❗️
   </div>
 
   <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
 
   <div class="secret-section">
-    <button class="invisible-trigger" id="secretEditTrigger">•••••••</button>
+    <button class="invisible-trigger" id="secretEditTrigger">⚡⚡⚡</button>
   </div>
 </div>
 
-<!-- Модальные окна (без изменений) -->
+<!-- Модальные окна -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">&times;</span>
-    <h3>🔐 Доступ</h3>
-    <p style="margin-bottom:16px; color:#78350f; font-weight:600;">Введите секретный пароль</p>
+    <h3>🌌 Доступ к управлению</h3>
+    <p style="margin-bottom:16px; color:#b8d4ff; font-weight:600;">Введите мастер-пароль</p>
     <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
     <button class="modal-btn" id="submitMasterPass">Проверить</button>
     <div id="authError" class="error-msg"></div>
@@ -136,26 +543,46 @@
 <div class="modal-overlay" id="editModal">
   <div class="modal-card">
     <span class="close-icon" id="closeEditModal">&times;</span>
-    <h3>✏️ Изменить (временно)</h3>
-    <label style="font-weight:700; color:#78350f;">Новый пароль:</label>
+    <h3>✏️ Редактирование</h3>
+    <label style="font-weight:700; color:#b8d4ff;">Новый пароль:</label>
     <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
-    <label style="font-weight:700; color:#78350f;">Дата изменения (дд.мм):</label>
-    <input type="text" id="newDateField" class="modal-input" placeholder="например 15.04" maxlength="5">
-    <button class="modal-btn" id="saveChangesBtn">💾 Применить</button>
-    <p class="save-hint">Временно. Чтобы изменить навсегда, отредактируйте config.json в репозитории.</p>
+    <label style="font-weight:700; color:#b8d4ff;">Дата изменения (дд.мм):</label>
+    <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5">
+    <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
+    <p class="save-hint">Изменения сохраняются в браузере и будут действовать после обновления.</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
   </div>
 </div>
 
 <script>
   (function() {
-    // Загрузка config.json
-    let currentPassword = 'Загрузка...';
-    let currentUpdateDate = '...';
+    // Генерация звёзд
+    const starsContainer = document.getElementById('starsContainer');
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // Конфигурация по умолчанию (из config.json подставится ниже)
+    const DEFAULT_PASS = 'rfT-L8y-E4Z-Dur';
+    const DEFAULT_DATE = '12.04';
+
+    // Текущие значения
+    let currentPassword = DEFAULT_PASS;
+    let currentUpdateDate = DEFAULT_DATE;
 
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
 
+    // Функция отрисовки
     function render() {
       passwordContainer.innerHTML = '';
       passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
@@ -167,19 +594,41 @@
       lastUpdateSpan.textContent = currentUpdateDate;
     }
 
-    // Запрос config.json с защитой от кеша
-    fetch('./config.json?t=' + Date.now())
-      .then(response => response.ok ? response.json() : Promise.reject())
-      .then(config => {
-        currentPassword = config.password || 'rfT-L8y-E4Z-Dur';
-        currentUpdateDate = config.updateDate || '12.04';
+    // Сохранение в localStorage
+    function saveToLocalStorage() {
+      localStorage.setItem('funpay_password', currentPassword);
+      localStorage.setItem('funpay_date', currentUpdateDate);
+    }
+
+    // Загрузка данных: сначала localStorage, потом config.json (если нет в localStorage)
+    function loadInitialData() {
+      const storedPass = localStorage.getItem('funpay_password');
+      const storedDate = localStorage.getItem('funpay_date');
+      if (storedPass && storedDate) {
+        currentPassword = storedPass;
+        currentUpdateDate = storedDate;
         render();
-      })
-      .catch(() => {
-        currentPassword = 'rfT-L8y-E4Z-Dur';
-        currentUpdateDate = '12.04';
-        render();
-      });
+        return;
+      }
+
+      // Иначе грузим config.json
+      fetch('./config.json?t=' + Date.now())
+        .then(response => response.ok ? response.json() : Promise.reject())
+        .then(config => {
+          currentPassword = config.password || DEFAULT_PASS;
+          currentUpdateDate = config.updateDate || DEFAULT_DATE;
+          render();
+          saveToLocalStorage(); // сохраним, чтобы в следующий раз не лезть в config
+        })
+        .catch(() => {
+          currentPassword = DEFAULT_PASS;
+          currentUpdateDate = DEFAULT_DATE;
+          render();
+          saveToLocalStorage();
+        });
+    }
+
+    loadInitialData();
 
     // Копирование
     document.querySelector('.glass-card').addEventListener('click', (e) => {
@@ -227,7 +676,7 @@
         editModal.style.display = 'flex';
       } else {
         authError.textContent = '❌ Неверный пароль!';
-        masterInput.style.borderColor = '#dc2626';
+        masterInput.style.borderColor = '#ff4f75';
         setTimeout(() => masterInput.style.borderColor = '', 800);
       }
     });
@@ -240,10 +689,12 @@
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
       if (!newPass || !newDate) return alert('Заполните все поля');
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 12.04)');
+      
       currentPassword = newPass;
       currentUpdateDate = newDate;
       render();
+      saveToLocalStorage();
       closeEdit();
     });
 
