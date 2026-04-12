@@ -4,465 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>🔐 Доступ к аккаунту</title>
-  <!-- современный шрифт Inter -->
+  <!-- подключаем конфиг с паролем и датой -->
+  <script src="config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%);
-      padding: 24px 16px 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* декоративные плавающие элементы */
-    .bg-blob {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: rgba(255, 220, 120, 0.25);
-      border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%;
-      top: -150px;
-      right: -100px;
-      filter: blur(70px);
-      animation: float 18s infinite alternate ease-in-out;
-      pointer-events: none;
-    }
-
-    .bg-blob2 {
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      background: rgba(255, 140, 0, 0.2);
-      border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
-      bottom: -100px;
-      left: -80px;
-      filter: blur(80px);
-      animation: float2 20s infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(30px, -40px) rotate(8deg); }
-    }
-    @keyframes float2 {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(-40px, 30px) rotate(-6deg); }
-    }
-
-    .glass-card {
-      max-width: 720px;
-      width: 100%;
-      background: rgba(255, 250, 235, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 56px 24px 56px 24px;
-      box-shadow: 0 30px 45px -8px rgba(150, 60, 0, 0.5),
-                  0 12px 0 0 #b45309 inset,
-                  0 -4px 0 0 #fde68a inset,
-                  0 0 0 3px #fbbf24;
-      padding: 34px 30px 38px;
-      border: 2px solid #ffb347;
-      transition: transform 0.25s ease, box-shadow 0.3s;
-      position: relative;
-      z-index: 10;
-    }
-
-    .glass-card:hover {
-      box-shadow: 0 35px 50px -10px rgba(180, 70, 0, 0.5),
-                  0 12px 0 0 #b45309 inset,
-                  0 -4px 0 0 #fde68a inset,
-                  0 0 0 3px #fbbf24;
-      transform: scale(1.002);
-    }
-
-    /* шапка без заголовка */
-    .decor-line {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-
-    .decor-icon {
-      background: #ea580c;
-      width: 56px;
-      height: 56px;
-      border-radius: 20px 8px 20px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 0 #9a3412;
-      border: 2px solid #fdba74;
-      color: #fffbeb;
-      font-size: 32px;
-      transform: rotate(3deg);
-      transition: 0.2s;
-    }
-
-    .decor-text {
-      font-weight: 800;
-      color: #78350f;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 1rem;
-      background: #fde68a;
-      padding: 10px 24px;
-      border-radius: 60px;
-      box-shadow: inset 0 -3px 0 #b45309;
-      border: 1px solid #fbbf24;
-    }
-
-    /* панель предупреждений */
-    .alert-panel {
-      background: #fff3e0;
-      border-left: 16px solid #dc2626;
-      padding: 20px 22px 18px;
-      border-radius: 32px 16px 32px 16px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 0 #b45309, 0 6px 15px rgba(220, 38, 38, 0.1);
-      border: 2px solid #f97316;
-    }
-
-    .alert-title {
-      font-weight: 900;
-      font-size: 1.7rem;
-      color: #991b1b;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-
-    .alert-content {
-      font-weight: 700;
-      color: #3b1c0a;
-      background: #fef9c3;
-      padding: 16px 20px;
-      border-radius: 24px;
-      font-size: 1rem;
-      line-height: 1.6;
-      border: 2px solid #ea580c;
-      box-shadow: inset 0 2px 6px #fde68a;
-    }
-
-    .alert-content i {
-      background: #fee2e2;
-      padding: 4px 12px;
-      border-radius: 40px;
-      color: #b91c1c;
-      font-style: normal;
-      font-weight: 800;
-      margin: 0 2px;
-    }
-
-    /* контейнер с паролем */
-    .credentials-wrapper {
-      background: #fffbeb;
-      border-radius: 40px 20px 40px 20px;
-      padding: 22px 22px 18px;
-      margin: 28px 0 22px;
-      border: 5px solid #f59e0b;
-      box-shadow: inset 0 2px 10px #ffe69b, 0 14px 0 #b45309;
-      position: relative;
-      user-select: none;
-      transition: box-shadow 0.2s;
-    }
-
-    .credentials-wrapper::after {
-      content: "🛡️ защищённый блок";
-      position: absolute;
-      bottom: -14px;
-      right: 22px;
-      background: #1e293b;
-      color: #fbbf24;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 16px;
-      border-radius: 30px;
-      opacity: 0.8;
-      border: 1px solid #f59e0b;
-    }
-
-    .cred-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      background: #ffffff;
-      padding: 14px 24px;
-      border-radius: 60px 18px 60px 18px;
-      border: 4px solid #d97706;
-      box-shadow: 0 6px 0 #b45309;
-    }
-
-    .cred-label {
-      font-weight: 800;
-      min-width: 110px;
-      color: #92400e;
-      font-size: 1.6rem;
-      letter-spacing: -0.5px;
-    }
-
-    .cred-value {
-      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Cascadia Code', monospace;
-      font-size: 1.45rem;
-      font-weight: 700;
-      background: #fff7e6;
-      padding: 12px 20px;
-      border-radius: 60px;
-      color: #2c1604;
-      word-break: break-all;
-      flex: 1;
-      border: 2px dashed #fbbf24;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .copy-btn {
-      background: #f59e0b;
-      border: none;
-      color: #2c1604;
-      font-weight: 800;
-      padding: 12px 22px;
-      border-radius: 60px;
-      margin-left: 20px;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 6px 0 #b45309;
-      transition: all 0.08s;
-      border: 2px solid #fde68a;
-      background: linear-gradient(to bottom, #fbbf24, #f59e0b);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .copy-btn:active {
-      transform: translateY(5px);
-      box-shadow: 0 1px 0 #b45309;
-    }
-
-    .copy-btn:hover {
-      background: #fbbf24;
-    }
-
-    /* мета-инфо */
-    .meta-footer {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 12px 0 16px;
-    }
-
-    .update-chip {
-      background: #ea580c;
-      color: #fffbeb;
-      padding: 12px 26px;
-      border-radius: 40px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      box-shadow: inset 0 -4px 0 #9a3412;
-      border: 2px solid #fdba74;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .update-chip span {
-      background: #431407;
-      padding: 4px 16px;
-      border-radius: 40px;
-      color: #fde68a;
-      font-weight: 700;
-    }
-
-    .subscription-badge {
-      background: #fed7aa;
-      padding: 12px 26px;
-      border-radius: 40px;
-      font-weight: 900;
-      color: #7c2d12;
-      border: 4px solid #c2410c;
-      font-size: 1.2rem;
-      box-shadow: 0 6px 0 #9a3412;
-    }
-
-    .notice-message {
-      margin: 22px 0 16px;
-      background: rgba(255, 237, 213, 0.9);
-      padding: 18px 22px;
-      border-radius: 28px 12px 28px 12px;
-      color: #431407;
-      font-weight: 700;
-      border: 4px solid #f97316;
-      backdrop-filter: blur(4px);
-      font-size: 1rem;
-      box-shadow: inset 0 2px 6px #fde68a;
-      line-height: 1.5;
-    }
-
-    /* скрытая кнопка */
-    .secret-section {
-      margin-top: 30px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .invisible-trigger {
-      background: transparent;
-      border: none;
-      color: #b45309;
-      font-size: 10px;
-      padding: 4px 18px;
-      border-radius: 60px;
-      cursor: default;
-      opacity: 0.05;
-      transition: opacity 0.3s;
-      font-weight: 300;
-      letter-spacing: 3px;
-    }
-
-    .invisible-trigger:hover {
-      opacity: 0.3;
-      cursor: pointer;
-      background: rgba(180, 83, 9, 0.08);
-    }
-
-    .fake-log {
-      font-size: 10px;
-      text-align: right;
-      opacity: 0.5;
-      margin-top: 12px;
-      color: #3b1c0a;
-      font-weight: 500;
-    }
-
-    /* модалки */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(100, 40, 0, 0.7);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal-card {
-      background: #fffbeb;
-      max-width: 440px;
-      width: 90%;
-      padding: 32px 28px;
-      border-radius: 48px 20px 48px 20px;
-      border: 6px solid #f59e0b;
-      box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407;
-      animation: modalPop 0.2s ease-out;
-    }
-
-    @keyframes modalPop {
-      0% { transform: scale(0.95); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-card h3 {
-      color: #92400e;
-      font-size: 1.9rem;
-      margin-bottom: 24px;
-      font-weight: 800;
-    }
-
-    .modal-input {
-      width: 100%;
-      padding: 15px 18px;
-      border-radius: 50px;
-      border: 4px solid #fbbf24;
-      background: #fff7e6;
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-      font-weight: 600;
-      outline: none;
-      transition: border 0.15s;
-    }
-
-    .modal-input:focus {
-      border-color: #ea580c;
-      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.3);
-    }
-
-    .modal-btn {
-      background: #ea580c;
-      border: none;
-      color: white;
-      font-weight: 800;
-      padding: 16px 20px;
-      border-radius: 60px;
-      width: 100%;
-      font-size: 1.25rem;
-      box-shadow: 0 8px 0 #9a3412;
-      cursor: pointer;
-      transition: 0.08s;
-      border: 2px solid #fdba74;
-      margin-top: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .modal-btn.secondary {
-      background: #a16207;
-      box-shadow: 0 5px 0 #713f12;
-      margin-top: 16px;
-      font-size: 1.1rem;
-    }
-
-    .modal-btn:active {
-      transform: translateY(5px);
-      box-shadow: 0 3px 0 #7c2d12;
-    }
-
-    .close-icon {
-      float: right;
-      font-size: 34px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #b45309;
-      margin-top: -10px;
-      transition: 0.1s;
-    }
-
-    .close-icon:hover {
-      color: #ea580c;
-    }
-
-    .error-msg {
-      color: #b91c1c;
-      font-weight: bold;
-      margin: 12px 0 0;
-    }
-
-    /* сохранение индикатора */
-    .save-hint {
-      font-size: 12px;
-      color: #78350f;
-      margin-top: 8px;
-      font-weight: 500;
-    }
+    /* ... (стили остаются те же, что в предыдущем ответе) ... */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { min-height: 100vh; background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%); padding: 24px 16px 50px; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; }
+    .bg-blob { position: absolute; width: 400px; height: 400px; background: rgba(255,220,120,0.25); border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; top: -150px; right: -100px; filter: blur(70px); animation: float 18s infinite alternate; pointer-events: none; }
+    .bg-blob2 { position: absolute; width: 350px; height: 350px; background: rgba(255,140,0,0.2); border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%; bottom: -100px; left: -80px; filter: blur(80px); animation: float2 20s infinite alternate; pointer-events: none; }
+    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(30px,-40px) rotate(8deg); } }
+    @keyframes float2 { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-40px,30px) rotate(-6deg); } }
+    .glass-card { max-width: 720px; width: 100%; background: rgba(255,250,235,0.85); backdrop-filter: blur(16px); border-radius: 56px 24px 56px 24px; box-shadow: 0 30px 45px -8px rgba(150,60,0,0.5), 0 12px 0 0 #b45309 inset, 0 -4px 0 0 #fde68a inset, 0 0 0 3px #fbbf24; padding: 34px 30px 38px; border: 2px solid #ffb347; position: relative; z-index: 10; transition: 0.2s; }
+    .decor-line { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .decor-icon { background: #ea580c; width: 56px; height: 56px; border-radius: 20px 8px 20px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #9a3412; border: 2px solid #fdba74; color: #fffbeb; font-size: 32px; transform: rotate(3deg); }
+    .decor-text { font-weight: 800; color: #78350f; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; background: #fde68a; padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -3px 0 #b45309; border: 1px solid #fbbf24; }
+    .alert-panel { background: #fff3e0; border-left: 16px solid #dc2626; padding: 20px 22px 18px; border-radius: 32px 16px 32px 16px; margin-bottom: 30px; box-shadow: 0 10px 0 #b45309, 0 6px 15px rgba(220,38,38,0.1); border: 2px solid #f97316; }
+    .alert-title { font-weight: 900; font-size: 1.7rem; color: #991b1b; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-transform: uppercase; }
+    .alert-content { font-weight: 700; color: #3b1c0a; background: #fef9c3; padding: 16px 20px; border-radius: 24px; font-size: 1rem; line-height: 1.6; border: 2px solid #ea580c; box-shadow: inset 0 2px 6px #fde68a; }
+    .alert-content i { background: #fee2e2; padding: 4px 12px; border-radius: 40px; color: #b91c1c; font-style: normal; font-weight: 800; margin: 0 2px; }
+    .credentials-wrapper { background: #fffbeb; border-radius: 40px 20px 40px 20px; padding: 22px 22px 18px; margin: 28px 0 22px; border: 5px solid #f59e0b; box-shadow: inset 0 2px 10px #ffe69b, 0 14px 0 #b45309; position: relative; user-select: none; }
+    .credentials-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -14px; right: 22px; background: #1e293b; color: #fbbf24; font-size: 11px; font-weight: 600; padding: 5px 16px; border-radius: 30px; opacity: 0.8; border: 1px solid #f59e0b; }
+    .cred-row { display: flex; align-items: center; flex-wrap: wrap; background: #ffffff; padding: 14px 24px; border-radius: 60px 18px 60px 18px; border: 4px solid #d97706; box-shadow: 0 6px 0 #b45309; }
+    .cred-label { font-weight: 800; min-width: 110px; color: #92400e; font-size: 1.6rem; letter-spacing: -0.5px; }
+    .cred-value { font-family: 'SF Mono', monospace; font-size: 1.45rem; font-weight: 700; background: #fff7e6; padding: 12px 20px; border-radius: 60px; color: #2c1604; word-break: break-all; flex: 1; border: 2px dashed #fbbf24; display: flex; align-items: center; justify-content: space-between; }
+    .copy-btn { background: #f59e0b; border: none; color: #2c1604; font-weight: 800; padding: 12px 22px; border-radius: 60px; margin-left: 20px; cursor: pointer; font-size: 1rem; box-shadow: 0 6px 0 #b45309; transition: all 0.08s; border: 2px solid #fde68a; background: linear-gradient(to bottom, #fbbf24, #f59e0b); display: inline-flex; align-items: center; gap: 6px; }
+    .copy-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #b45309; }
+    .meta-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 12px 0 16px; }
+    .update-chip { background: #ea580c; color: #fffbeb; padding: 12px 26px; border-radius: 40px; font-weight: 800; font-size: 1.05rem; box-shadow: inset 0 -4px 0 #9a3412; border: 2px solid #fdba74; display: flex; align-items: center; gap: 8px; }
+    .update-chip span { background: #431407; padding: 4px 16px; border-radius: 40px; color: #fde68a; font-weight: 700; }
+    .subscription-badge { background: #fed7aa; padding: 12px 26px; border-radius: 40px; font-weight: 900; color: #7c2d12; border: 4px solid #c2410c; font-size: 1.2rem; box-shadow: 0 6px 0 #9a3412; }
+    .notice-message { margin: 22px 0 16px; background: rgba(255,237,213,0.9); padding: 18px 22px; border-radius: 28px 12px 28px 12px; color: #431407; font-weight: 700; border: 4px solid #f97316; backdrop-filter: blur(4px); font-size: 1rem; box-shadow: inset 0 2px 6px #fde68a; line-height: 1.5; }
+    .secret-section { margin-top: 30px; display: flex; justify-content: flex-end; }
+    .invisible-trigger { background: transparent; border: none; color: #b45309; font-size: 10px; padding: 4px 18px; border-radius: 60px; cursor: default; opacity: 0.05; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; }
+    .invisible-trigger:hover { opacity: 0.3; cursor: pointer; background: rgba(180,83,9,0.08); }
+    .fake-log { font-size: 10px; text-align: right; opacity: 0.5; margin-top: 12px; color: #3b1c0a; font-weight: 500; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(100,40,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-card { background: #fffbeb; max-width: 440px; width: 90%; padding: 32px 28px; border-radius: 48px 20px 48px 20px; border: 6px solid #f59e0b; box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407; animation: modalPop 0.2s; }
+    @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+    .modal-card h3 { color: #92400e; font-size: 1.9rem; margin-bottom: 24px; font-weight: 800; }
+    .modal-input { width: 100%; padding: 15px 18px; border-radius: 50px; border: 4px solid #fbbf24; background: #fff7e6; font-size: 1.05rem; margin-bottom: 20px; font-weight: 600; outline: none; }
+    .modal-input:focus { border-color: #ea580c; box-shadow: 0 0 0 4px rgba(245,158,11,0.3); }
+    .modal-btn { background: #ea580c; border: none; color: white; font-weight: 800; padding: 16px 20px; border-radius: 60px; width: 100%; font-size: 1.25rem; box-shadow: 0 8px 0 #9a3412; cursor: pointer; transition: 0.08s; border: 2px solid #fdba74; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .modal-btn.secondary { background: #a16207; box-shadow: 0 5px 0 #713f12; margin-top: 16px; font-size: 1.1rem; }
+    .modal-btn:active { transform: translateY(5px); box-shadow: 0 3px 0 #7c2d12; }
+    .close-icon { float: right; font-size: 34px; font-weight: bold; cursor: pointer; color: #b45309; margin-top: -10px; }
+    .error-msg { color: #b91c1c; font-weight: bold; margin: 12px 0 0; }
+    .save-hint { font-size: 12px; color: #78350f; margin-top: 8px; font-weight: 500; }
   </style>
 </head>
 <body>
@@ -475,11 +65,8 @@
     <div class="decor-text">ЗАЩИЩЁННЫЙ ДОСТУП</div>
   </div>
 
-  <!-- предупреждения -->
   <div class="alert-panel">
-    <div class="alert-title">
-      <span>🚫⚠️</span> НАРУШЕНИЕ = БАН
-    </div>
+    <div class="alert-title"><span>🚫⚠️</span> НАРУШЕНИЕ = БАН</div>
     <div class="alert-content">
       ❗ Пожалуйста не меняйте пароль и др. иначе лишитесь аккаунта, плюс напишу в поддержку что вы нарушаете правила платформы и вас блокнут на FunPay!!<br>
       <i>!!НЕ СПАМЬТЕ В ЧАТАХ!!</i><br>
@@ -487,7 +74,7 @@
     </div>
   </div>
 
-  <!-- ТОЛЬКО ПАРОЛЬ (EMAIL убран) -->
+  <!-- Пароль будет подставлен из config.js -->
   <div class="credentials-wrapper" oncontextmenu="return false;">
     <div class="cred-row">
       <span class="cred-label">🔒 Пароль</span>
@@ -495,10 +82,9 @@
     </div>
   </div>
 
-  <!-- дата и подписка -->
   <div class="meta-footer">
     <div class="update-chip">
-      🔄 изменено <span id="lastUpdateDate">11.04</span>
+      🔄 изменено <span id="lastUpdateDate">загрузка...</span>
     </div>
     <div class="subscription-badge">✅ Подписка до 10.05</div>
   </div>
@@ -509,18 +95,17 @@
 
   <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
 
-  <!-- скрытая кнопка -->
   <div class="secret-section">
     <button class="invisible-trigger" id="secretEditTrigger">•••••••</button>
   </div>
 </div>
 
-<!-- модалка ввода мастер-пароля -->
+<!-- Модальные окна (для временного редактирования) -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">&times;</span>
     <h3>🔐 Доступ</h3>
-    <p style="margin-bottom: 16px; color: #78350f; font-weight: 600;">Введите секретный пароль</p>
+    <p style="margin-bottom:16px; color:#78350f; font-weight:600;">Введите секретный пароль</p>
     <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
     <button class="modal-btn" id="submitMasterPass">Проверить</button>
     <div id="authError" class="error-msg"></div>
@@ -528,89 +113,53 @@
   </div>
 </div>
 
-<!-- модалка редактирования пароля и даты -->
 <div class="modal-overlay" id="editModal">
   <div class="modal-card">
     <span class="close-icon" id="closeEditModal">&times;</span>
-    <h3>✏️ Изменить</h3>
-    
+    <h3>✏️ Изменить (временно)</h3>
     <label style="font-weight:700; color:#78350f;">Новый пароль:</label>
     <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
-    
     <label style="font-weight:700; color:#78350f;">Дата изменения (дд.мм):</label>
     <input type="text" id="newDateField" class="modal-input" placeholder="например 15.04" maxlength="5">
-    
-    <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
-    <p class="save-hint">Изменения сохраняются в браузере</p>
+    <button class="modal-btn" id="saveChangesBtn">💾 Применить</button>
+    <p class="save-hint">Временно. Для постоянного изменения отредактируйте config.js</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
   </div>
 </div>
 
 <script>
-  (function(){
-    "use strict";
+  (function() {
+    // Получаем данные из внешнего конфига (должен быть определён объект SITE_CONFIG)
+    const config = window.SITE_CONFIG || {};
+    const DEFAULT_PASSWORD = config.password || 'U7h-waV-kkT-tWC';
+    const DEFAULT_DATE = config.updateDate || '11.04';
 
-    // ---------- localStorage ключи ----------
-    const STORAGE_PASS = 'funpay_saved_password';
-    const STORAGE_DATE = 'funpay_saved_date';
+    let currentPassword = DEFAULT_PASSWORD;
+    let currentUpdateDate = DEFAULT_DATE;
 
-    // начальные значения (если нет в localStorage)
-    const DEFAULT_PASSWORD = 'U7h-waV-kkT-tWC';
-    const DEFAULT_DATE = '11.04';
-
-    // загружаем из localStorage или defaults
-    let currentPassword = localStorage.getItem(STORAGE_PASS) || DEFAULT_PASSWORD;
-    let currentUpdateDate = localStorage.getItem(STORAGE_DATE) || DEFAULT_DATE;
-
-    // DOM элементы
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
 
-    const authModal = document.getElementById('authModal');
-    const editModal = document.getElementById('editModal');
-    const masterPassInput = document.getElementById('masterPasswordInput');
-    const authError = document.getElementById('authError');
-    
-    const newPasswordField = document.getElementById('newPasswordField');
-    const newDateField = document.getElementById('newDateField');
-
-    const MASTER_PASS = 'XsOH_47Sh9';
-
-    // ---------- рендер пароля и даты ----------
-    function renderCredentials() {
+    function render() {
       passwordContainer.innerHTML = '';
-      const passText = document.createTextNode(currentPassword + ' ');
-      passwordContainer.appendChild(passText);
-      
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
-      copyBtn.setAttribute('data-copy', currentPassword);
-      copyBtn.innerHTML = '📋 Копировать';
-      passwordContainer.appendChild(copyBtn);
-      
+      passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.setAttribute('data-copy', currentPassword);
+      btn.innerHTML = '📋 Копировать';
+      passwordContainer.appendChild(btn);
       lastUpdateSpan.textContent = currentUpdateDate;
     }
+    render();
 
-    // сохранение в localStorage
-    function persistData() {
-      localStorage.setItem(STORAGE_PASS, currentPassword);
-      localStorage.setItem(STORAGE_DATE, currentUpdateDate);
-    }
-
-    // начальный рендер
-    renderCredentials();
-
-    // ---------- копирование ----------
-    document.querySelector('.glass-card').addEventListener('click', function(e) {
+    // Копирование
+    document.querySelector('.glass-card').addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
       const text = btn.getAttribute('data-copy');
-      if (!text) return;
-      
       navigator.clipboard?.writeText(text).then(() => {
-        const original = btn.innerHTML;
         btn.innerHTML = '✅ Скопировано!';
-        setTimeout(() => btn.innerHTML = original, 1200);
+        setTimeout(() => btn.innerHTML = '📋 Копировать', 1200);
       }).catch(() => {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -623,82 +172,56 @@
       });
     });
 
-    // ---------- скрытая кнопка ----------
+    // Скрытая кнопка -> модалка с мастер-паролем
+    const authModal = document.getElementById('authModal');
+    const editModal = document.getElementById('editModal');
+    const masterInput = document.getElementById('masterPasswordInput');
+    const authError = document.getElementById('authError');
+    const MASTER = 'XsOH_47Sh9';
+
     document.getElementById('secretEditTrigger').addEventListener('click', () => {
-      masterPassInput.value = '';
+      masterInput.value = '';
       authError.textContent = '';
       authModal.style.display = 'flex';
     });
 
-    // закрыть auth модалку
     function closeAuth() { authModal.style.display = 'none'; }
     document.getElementById('closeAuthModal').addEventListener('click', closeAuth);
     document.getElementById('cancelAuthBtn').addEventListener('click', closeAuth);
-    
-    // проверка мастер-пароля
+
     document.getElementById('submitMasterPass').addEventListener('click', () => {
-      if (masterPassInput.value === MASTER_PASS) {
+      if (masterInput.value === MASTER) {
         closeAuth();
-        newPasswordField.value = currentPassword;
-        newDateField.value = currentUpdateDate;
+        document.getElementById('newPasswordField').value = currentPassword;
+        document.getElementById('newDateField').value = currentUpdateDate;
         editModal.style.display = 'flex';
       } else {
         authError.textContent = '❌ Неверный пароль!';
-        masterPassInput.style.borderColor = '#dc2626';
-        setTimeout(() => masterPassInput.style.borderColor = '', 800);
+        masterInput.style.borderColor = '#dc2626';
+        setTimeout(() => masterInput.style.borderColor = '', 800);
       }
     });
-    
-    masterPassInput.addEventListener('keypress', (e) => {
-      if(e.key === 'Enter') document.getElementById('submitMasterPass').click();
-    });
 
-    // закрыть edit модалку
     function closeEdit() { editModal.style.display = 'none'; }
     document.getElementById('closeEditModal').addEventListener('click', closeEdit);
     document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
 
-    // сохранение изменений
     document.getElementById('saveChangesBtn').addEventListener('click', () => {
-      const newPass = newPasswordField.value.trim();
-      const newDate = newDateField.value.trim();
-
-      if (!newPass || !newDate) {
-        alert('Все поля должны быть заполнены!');
-        return;
-      }
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) {
-        alert('Дата должна быть в формате дд.мм (например 15.04)');
-        return;
-      }
-
-      // обновляем глобальные переменные
+      const newPass = document.getElementById('newPasswordField').value.trim();
+      const newDate = document.getElementById('newDateField').value.trim();
+      if (!newPass || !newDate) return alert('Заполните все поля');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм');
       currentPassword = newPass;
       currentUpdateDate = newDate;
-
-      // сохраняем в localStorage
-      persistData();
-      
-      // перерисовываем
-      renderCredentials();
+      render();
       closeEdit();
-
-      // визуальный отклик
-      const panel = document.querySelector('.credentials-wrapper');
-      panel.style.transform = 'scale(1.02)';
-      setTimeout(() => panel.style.transform = 'scale(1)', 120);
     });
 
-    // закрытие по клику вне модалки
     window.addEventListener('click', (e) => {
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
-
-    // дополнительная защита
-    document.querySelector('.credentials-wrapper').addEventListener('contextmenu', (e) => e.preventDefault());
-    
-    console.log("%c🛡️ Доступ защищён. Несанкционированное редактирование запрещено.", "color: #b45309; font-size: 14px; font-weight: bold;");
+    document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
   })();
 </script>
 </body>
