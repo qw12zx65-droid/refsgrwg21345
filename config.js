@@ -1,4 +1,4 @@
 window.SITE_CONFIG = {
-  password: "U7h-waV-kkT-tWC",
+  password: "123",
   updateDate: "11.04"
 };
