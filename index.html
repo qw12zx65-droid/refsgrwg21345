@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>🔐 Доступ к аккаунту</title>
-  <!-- подключаем конфиг с паролем и датой -->
-  <script src="config.js"></script>
+  <!-- Шрифт Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
-    /* ... (стили остаются те же, что в предыдущем ответе) ... */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { min-height: 100vh; background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%); padding: 24px 16px 50px; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; }
     .bg-blob { position: absolute; width: 400px; height: 400px; background: rgba(255,220,120,0.25); border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; top: -150px; right: -100px; filter: blur(70px); animation: float 18s infinite alternate; pointer-events: none; }
@@ -74,7 +72,7 @@
     </div>
   </div>
 
-  <!-- Пароль будет подставлен из config.js -->
+  <!-- Блок с паролем -->
   <div class="credentials-wrapper" oncontextmenu="return false;">
     <div class="cred-row">
       <span class="cred-label">🔒 Пароль</span>
@@ -84,7 +82,7 @@
 
   <div class="meta-footer">
     <div class="update-chip">
-      🔄 изменено <span id="lastUpdateDate">загрузка...</span>
+      🔄 изменено <span id="lastUpdateDate"></span>
     </div>
     <div class="subscription-badge">✅ Подписка до 10.05</div>
   </div>
@@ -100,7 +98,7 @@
   </div>
 </div>
 
-<!-- Модальные окна (для временного редактирования) -->
+<!-- Модалки для временного редактирования (по паролю) -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">&times;</span>
@@ -122,20 +120,22 @@
     <label style="font-weight:700; color:#78350f;">Дата изменения (дд.мм):</label>
     <input type="text" id="newDateField" class="modal-input" placeholder="например 15.04" maxlength="5">
     <button class="modal-btn" id="saveChangesBtn">💾 Применить</button>
-    <p class="save-hint">Временно. Для постоянного изменения отредактируйте config.js</p>
+    <p class="save-hint">Временно. Для постоянного изменения отредактируйте файл index.html</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
   </div>
 </div>
 
 <script>
-  (function() {
-    // Получаем данные из внешнего конфига (должен быть определён объект SITE_CONFIG)
-    const config = window.SITE_CONFIG || {};
-    const DEFAULT_PASSWORD = config.password || 'U7h-waV-kkT-tWC';
-    const DEFAULT_DATE = config.updateDate || '11.04';
+  // ========== НАСТРОЙКИ (МЕНЯЙТЕ ЗДЕСЬ) ==========
+  const CONFIG = {
+    password: "U7h-waV-kkT-tWC",   // ← Поменять пароль
+    updateDate: "11.04"            // ← Поменять дату (формат дд.мм)
+  };
+  // =============================================
 
-    let currentPassword = DEFAULT_PASSWORD;
-    let currentUpdateDate = DEFAULT_DATE;
+  (function() {
+    let currentPassword = CONFIG.password;
+    let currentUpdateDate = CONFIG.updateDate;
 
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
@@ -172,7 +172,7 @@
       });
     });
 
-    // Скрытая кнопка -> модалка с мастер-паролем
+    // Скрытая кнопка
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
