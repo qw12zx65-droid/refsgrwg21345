@@ -171,12 +171,12 @@
     fetch('./config.json?t=' + Date.now())
       .then(response => response.ok ? response.json() : Promise.reject())
       .then(config => {
-        currentPassword = config.password || 'U7h-waV-kkT-tWC';
-        currentUpdateDate = config.updateDate || '11.04';
+        currentPassword = config.password || 'rfT-L8y-E4Z-Dur';
+        currentUpdateDate = config.updateDate || '12.04';
         render();
       })
       .catch(() => {
-        currentPassword = 'U7h-waV-kkT-tWC';
+        currentPassword = 'rfT-L8y-E4Z-Dur';
         currentUpdateDate = '11.04';
         render();
       });
