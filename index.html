@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>🌌 Доступ · Защищённый канал</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
     body {
       min-height: 100vh;
       background: radial-gradient(circle at 20% 30%, #0b0f2a, #030514);
-      padding: 24px 16px 50px;
+      padding: 20px 16px 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,6 +94,7 @@
       align-items: center;
       gap: 14px;
       margin-bottom: 28px;
+      flex-wrap: wrap;
     }
 
     .decor-icon {
@@ -147,6 +148,7 @@
       margin-bottom: 16px;
       text-transform: uppercase;
       text-shadow: 0 0 10px #ff2a5e;
+      flex-wrap: wrap;
     }
 
     .alert-content {
@@ -169,6 +171,7 @@
       font-style: normal;
       font-weight: 800;
       margin: 0 2px;
+      display: inline-block;
     }
 
     /* Блок с паролем */
@@ -198,6 +201,7 @@
       opacity: 0.9;
       border: 1px solid #3f8eff;
       box-shadow: 0 0 10px #3f8eff;
+      white-space: nowrap;
     }
 
     .cred-row {
@@ -209,6 +213,7 @@
       border-radius: 60px 18px 60px 18px;
       border: 2px solid #5f9fff;
       box-shadow: 0 6px 0 #0a1620, inset 0 0 12px #1e4a8e;
+      gap: 12px;
     }
 
     .cred-label {
@@ -234,6 +239,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       box-shadow: inset 0 0 15px #1e3a6b;
     }
 
@@ -244,7 +251,7 @@
       font-weight: 800;
       padding: 12px 22px;
       border-radius: 60px;
-      margin-left: 20px;
+      margin-left: 0;
       cursor: pointer;
       font-size: 1rem;
       box-shadow: 0 6px 0 #0a1620, 0 0 12px #3f8eff;
@@ -253,6 +260,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
     }
 
     .copy-btn:active {
@@ -266,6 +274,7 @@
       justify-content: space-between;
       align-items: center;
       margin: 12px 0 16px;
+      gap: 16px;
     }
 
     .update-chip {
@@ -280,6 +289,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .update-chip span {
@@ -341,7 +351,7 @@
       border: none;
       color: #5f9fff;
       font-size: 10px;
-      padding: 4px 18px;
+      padding: 8px 20px;
       border-radius: 60px;
       cursor: default;
       opacity: 0.1;
@@ -370,18 +380,19 @@
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 5, 20, 0.8);
+      background: rgba(0, 5, 20, 0.85);
       backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      padding: 20px;
     }
 
     .modal-card {
-      background: rgba(15, 25, 45, 0.9);
+      background: rgba(15, 25, 45, 0.95);
       max-width: 440px;
-      width: 90%;
+      width: 100%;
       padding: 32px 28px;
       border-radius: 48px 20px 48px 20px;
       border: 2px solid #4f8eff;
@@ -474,6 +485,186 @@
       margin-top: 8px;
       font-weight: 500;
     }
+
+    /* ========= АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ ========= */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 12px 32px;
+      }
+      .glass-card {
+        padding: 24px 20px 28px;
+        border-radius: 48px 20px 48px 20px;
+      }
+      .decor-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+      }
+      .decor-text {
+        font-size: 0.85rem;
+        padding: 8px 18px;
+        letter-spacing: 2px;
+      }
+      .alert-title {
+        font-size: 1.4rem;
+        gap: 8px;
+      }
+      .alert-content {
+        padding: 14px 16px;
+        font-size: 0.9rem;
+      }
+      .credentials-wrapper {
+        padding: 18px 16px 14px;
+        margin: 20px 0 18px;
+      }
+      .credentials-wrapper::after {
+        font-size: 9px;
+        padding: 4px 12px;
+        right: 16px;
+        bottom: -12px;
+        white-space: nowrap;
+      }
+      .cred-row {
+        padding: 12px 16px;
+        gap: 10px;
+      }
+      .cred-label {
+        font-size: 1.3rem;
+        min-width: 90px;
+      }
+      .cred-value {
+        font-size: 1.1rem;
+        padding: 10px 16px;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 12px;
+      }
+      .copy-btn {
+        margin-left: 0;
+        justify-content: center;
+        padding: 10px 18px;
+        font-size: 0.9rem;
+        width: 100%;
+        white-space: nowrap;
+      }
+      .meta-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .update-chip, .subscription-badge {
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+      .subscription-badge {
+        font-size: 1rem;
+      }
+      .notice-message {
+        font-size: 0.9rem;
+        padding: 14px 18px;
+      }
+      .code-hint-box {
+        font-size: 0.85rem;
+        padding: 12px 14px;
+      }
+      .modal-card {
+        padding: 24px 20px;
+      }
+      .modal-card h3 {
+        font-size: 1.6rem;
+      }
+      .modal-btn {
+        font-size: 1.1rem;
+        padding: 14px 16px;
+      }
+      .modal-btn.secondary {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 20px 16px 24px;
+      }
+      .decor-line {
+        gap: 10px;
+      }
+      .decor-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+      }
+      .decor-text {
+        font-size: 0.7rem;
+        padding: 6px 14px;
+      }
+      .alert-title {
+        font-size: 1.2rem;
+      }
+      .alert-content {
+        font-size: 0.8rem;
+        padding: 12px 14px;
+      }
+      .cred-label {
+        font-size: 1.2rem;
+        min-width: 80px;
+      }
+      .cred-value {
+        font-size: 1rem;
+        padding: 8px 12px;
+      }
+      .copy-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+      .update-chip, .subscription-badge {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+      }
+      .update-chip span {
+        font-size: 0.85rem;
+      }
+      .notice-message {
+        font-size: 0.8rem;
+        padding: 12px 14px;
+      }
+      .code-hint-box {
+        font-size: 0.75rem;
+      }
+      .modal-card {
+        padding: 20px 16px;
+      }
+      .modal-card h3 {
+        font-size: 1.4rem;
+      }
+      .modal-input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+      }
+      .modal-btn {
+        font-size: 1rem;
+        padding: 12px 14px;
+      }
+      .close-icon {
+        font-size: 28px;
+      }
+      .invisible-trigger {
+        padding: 6px 16px;
+      }
+    }
+
+    /* Для планшетов в альбомной ориентации — сохраняем компактность */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .glass-card {
+        max-width: 85%;
+      }
+      .cred-value {
+        font-size: 1.3rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -556,7 +747,7 @@
 
 <script>
   (function() {
-    // ========= ГЕНЕРАЦИЯ ЗВЁЗД =========
+    // Генерация звёзд
     const starsContainer = document.getElementById('starsContainer');
     for (let i = 0; i < 120; i++) {
       const star = document.createElement('div');
@@ -571,19 +762,17 @@
       starsContainer.appendChild(star);
     }
 
-    // ========= НОВЫЕ УЧЁТНЫЕ ДАННЫЕ ПО ТРЕБОВАНИЮ =========
+    // НОВЫЕ УЧЁТНЫЕ ДАННЫЕ (пароль и дата изменены по запросу)
     const NEW_DEFAULT_PASSWORD = '9Iw_-A2eIHje';
     const NEW_DEFAULT_DATE = '13.04';
-    const CRED_VERSION = '2';   // версия хранилища: принудительно обновляем устаревшие данные
+    const CRED_VERSION = '2';   // версия хранилища
 
-    // Текущие значения (будут установлены после инициализации)
     let currentPassword = NEW_DEFAULT_PASSWORD;
     let currentUpdateDate = NEW_DEFAULT_DATE;
 
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
 
-    // Функция рендера пароля и кнопки копирования
     function render() {
       passwordContainer.innerHTML = '';
       passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
@@ -595,20 +784,17 @@
       lastUpdateSpan.textContent = currentUpdateDate;
     }
 
-    // Сохранить текущие данные в localStorage + версию
     function saveToLocalStorage() {
       localStorage.setItem('funpay_password', currentPassword);
       localStorage.setItem('funpay_date', currentUpdateDate);
       localStorage.setItem('funpay_cred_version', CRED_VERSION);
     }
 
-    // Инициализация данных: проверка версии и миграция на новые креды если надо
     function initializeCredentials() {
       const storedVersion = localStorage.getItem('funpay_cred_version');
       const storedPass = localStorage.getItem('funpay_password');
       const storedDate = localStorage.getItem('funpay_date');
 
-      // Если версия совпадает и оба поля существуют — загружаем сохранённые (уважаем изменения через админку)
       if (storedVersion === CRED_VERSION && storedPass && storedDate) {
         currentPassword = storedPass;
         currentUpdateDate = storedDate;
@@ -616,20 +802,16 @@
         return;
       }
       
-      // ИНАЧЕ: либо первый визит, либо старая версия (был старый пароль rfT-L8y-E4Z-Dur и 12.04)
-      // Применяем новые значения по умолчанию (9Iw_-A2eIHje / 13.04)
+      // Устанавливаем новые значения по умолчанию
       currentPassword = NEW_DEFAULT_PASSWORD;
       currentUpdateDate = NEW_DEFAULT_DATE;
-      
-      // Сохраняем новые данные и актуальную версию
       saveToLocalStorage();
       render();
     }
 
-    // Запуск инициализации
     initializeCredentials();
 
-    // ========= КОПИРОВАНИЕ ПАРОЛЯ =========
+    // Копирование
     document.querySelector('.glass-card').addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
@@ -650,12 +832,12 @@
       });
     });
 
-    // ========= СИСТЕМА АВТОРИЗАЦИИ ДЛЯ РЕДАКТИРОВАНИЯ =========
+    // Админ-панель (мастер-пароль)
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
     const authError = document.getElementById('authError');
-    const MASTER = 'XsOH_47Sh9';   // мастер-пароль остаётся без изменений
+    const MASTER = 'XsOH_47Sh9';
 
     document.getElementById('secretEditTrigger').addEventListener('click', () => {
       masterInput.value = '';
@@ -684,7 +866,6 @@
     document.getElementById('closeEditModal').addEventListener('click', closeEdit);
     document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
 
-    // Сохранение изменений через админ-панель (с сохранением версии)
     document.getElementById('saveChangesBtn').addEventListener('click', () => {
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
@@ -694,21 +875,16 @@
       currentPassword = newPass;
       currentUpdateDate = newDate;
       render();
-      saveToLocalStorage();   // сохраняем вместе с версией (версия остаётся актуальной)
+      saveToLocalStorage();
       closeEdit();
     });
 
-    // Закрытие модалок по клику на оверлей
     window.addEventListener('click', (e) => {
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
     
-    // Защита от контекстного меню на блоке с паролем (доп. безопасность)
     document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
-    
-    // Небольшой лог в консоль (не влияет на интерфейс)
-    console.log('✅ Защищённая страница активна. Пароль и дата обновлены до актуальных.');
   })();
 </script>
 </body>
