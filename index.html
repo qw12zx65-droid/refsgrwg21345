@@ -556,7 +556,7 @@
 
 <script>
   (function() {
-    // Генерация звёзд
+    // ========= ГЕНЕРАЦИЯ ЗВЁЗД =========
     const starsContainer = document.getElementById('starsContainer');
     for (let i = 0; i < 120; i++) {
       const star = document.createElement('div');
@@ -571,18 +571,19 @@
       starsContainer.appendChild(star);
     }
 
-    // Конфигурация по умолчанию (из config.json подставится ниже)
-    const DEFAULT_PASS = '9Iw_-A2eIHje';
-    const DEFAULT_DATE = '12.04';
+    // ========= НОВЫЕ УЧЁТНЫЕ ДАННЫЕ ПО ТРЕБОВАНИЮ =========
+    const NEW_DEFAULT_PASSWORD = '9Iw_-A2eIHje';
+    const NEW_DEFAULT_DATE = '13.04';
+    const CRED_VERSION = '2';   // версия хранилища: принудительно обновляем устаревшие данные
 
-    // Текущие значения
-    let currentPassword = DEFAULT_PASS;
-    let currentUpdateDate = DEFAULT_DATE;
+    // Текущие значения (будут установлены после инициализации)
+    let currentPassword = NEW_DEFAULT_PASSWORD;
+    let currentUpdateDate = NEW_DEFAULT_DATE;
 
     const passwordContainer = document.getElementById('displayPasswordContainer');
     const lastUpdateSpan = document.getElementById('lastUpdateDate');
 
-    // Функция отрисовки
+    // Функция рендера пароля и кнопки копирования
     function render() {
       passwordContainer.innerHTML = '';
       passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
@@ -594,43 +595,41 @@
       lastUpdateSpan.textContent = currentUpdateDate;
     }
 
-    // Сохранение в localStorage
+    // Сохранить текущие данные в localStorage + версию
     function saveToLocalStorage() {
       localStorage.setItem('funpay_password', currentPassword);
       localStorage.setItem('funpay_date', currentUpdateDate);
+      localStorage.setItem('funpay_cred_version', CRED_VERSION);
     }
 
-    // Загрузка данных: сначала localStorage, потом config.json (если нет в localStorage)
-    function loadInitialData() {
+    // Инициализация данных: проверка версии и миграция на новые креды если надо
+    function initializeCredentials() {
+      const storedVersion = localStorage.getItem('funpay_cred_version');
       const storedPass = localStorage.getItem('funpay_password');
       const storedDate = localStorage.getItem('funpay_date');
-      if (storedPass && storedDate) {
+
+      // Если версия совпадает и оба поля существуют — загружаем сохранённые (уважаем изменения через админку)
+      if (storedVersion === CRED_VERSION && storedPass && storedDate) {
         currentPassword = storedPass;
         currentUpdateDate = storedDate;
         render();
         return;
       }
-
-      // Иначе грузим config.json
-      fetch('./config.json?t=' + Date.now())
-        .then(response => response.ok ? response.json() : Promise.reject())
-        .then(config => {
-          currentPassword = config.password || DEFAULT_PASS;
-          currentUpdateDate = config.updateDate || DEFAULT_DATE;
-          render();
-          saveToLocalStorage(); // сохраним, чтобы в следующий раз не лезть в config
-        })
-        .catch(() => {
-          currentPassword = DEFAULT_PASS;
-          currentUpdateDate = DEFAULT_DATE;
-          render();
-          saveToLocalStorage();
-        });
+      
+      // ИНАЧЕ: либо первый визит, либо старая версия (был старый пароль rfT-L8y-E4Z-Dur и 12.04)
+      // Применяем новые значения по умолчанию (9Iw_-A2eIHje / 13.04)
+      currentPassword = NEW_DEFAULT_PASSWORD;
+      currentUpdateDate = NEW_DEFAULT_DATE;
+      
+      // Сохраняем новые данные и актуальную версию
+      saveToLocalStorage();
+      render();
     }
 
-    loadInitialData();
+    // Запуск инициализации
+    initializeCredentials();
 
-    // Копирование
+    // ========= КОПИРОВАНИЕ ПАРОЛЯ =========
     document.querySelector('.glass-card').addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
@@ -651,12 +650,12 @@
       });
     });
 
-    // Скрытая кнопка и модалки
+    // ========= СИСТЕМА АВТОРИЗАЦИИ ДЛЯ РЕДАКТИРОВАНИЯ =========
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
     const authError = document.getElementById('authError');
-    const MASTER = 'XsOH_47Sh9';
+    const MASTER = 'XsOH_47Sh9';   // мастер-пароль остаётся без изменений
 
     document.getElementById('secretEditTrigger').addEventListener('click', () => {
       masterInput.value = '';
@@ -685,24 +684,31 @@
     document.getElementById('closeEditModal').addEventListener('click', closeEdit);
     document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
 
+    // Сохранение изменений через админ-панель (с сохранением версии)
     document.getElementById('saveChangesBtn').addEventListener('click', () => {
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
       if (!newPass || !newDate) return alert('Заполните все поля');
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 12.04)');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 13.04)');
       
       currentPassword = newPass;
       currentUpdateDate = newDate;
       render();
-      saveToLocalStorage();
+      saveToLocalStorage();   // сохраняем вместе с версией (версия остаётся актуальной)
       closeEdit();
     });
 
+    // Закрытие модалок по клику на оверлей
     window.addEventListener('click', (e) => {
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
+    
+    // Защита от контекстного меню на блоке с паролем (доп. безопасность)
     document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+    
+    // Небольшой лог в консоль (не влияет на интерфейс)
+    console.log('✅ Защищённая страница активна. Пароль и дата обновлены до актуальных.');
   })();
 </script>
 </body>
