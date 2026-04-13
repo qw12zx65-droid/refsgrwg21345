@@ -128,7 +128,7 @@
     <label style="font-weight:700; color:#b8d4ff;">Новый пароль:</label>
     <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
     <label style="font-weight:700; color:#b8d4ff;">Дата изменения (дд.мм):</label>
-    <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5">
+    <input type="text" id="newDateField" class="modal-input" placeholder="например 13.04" maxlength="5">
     <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
     <p class="save-hint">Изменения сохраняются в браузере и будут действовать после обновления.</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
@@ -213,8 +213,8 @@
     }
 
     // ---------- Конфигурация по умолчанию ----------
-    const DEFAULT_PASS = 'rfT-L8y-E4Z-Dur';
-    const DEFAULT_DATE = '12.04';
+    const DEFAULT_PASS = '9Iw_-A2eIHje';
+    const DEFAULT_DATE = '13.04';
     
     let currentPassword = DEFAULT_PASS;
     let currentUpdateDate = DEFAULT_DATE;
@@ -359,7 +359,7 @@
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
       if (!newPass || !newDate) return alert('Заполните все поля');
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 12.04)');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 13.04)');
       
       currentPassword = newPass;
       currentUpdateDate = newDate;
