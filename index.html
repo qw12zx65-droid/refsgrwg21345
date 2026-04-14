@@ -3,718 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>🌌 Продавец: goguk2009</title>
+  <title>🌌 Инструкция · Доступ к ChatGPT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at 20% 30%, #0b0f2a, #030514);
-      padding: 20px 16px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Звёзды */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: transparent;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      background-color: #ffffff;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: twinkle 3s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.2; transform: scale(1); }
-      100% { opacity: 1; transform: scale(1.2); }
-    }
-
-    /* Туманности */
-    .nebula {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(100, 80, 255, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-
+    /* === стили без изменений === */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { min-height: 100vh; background: radial-gradient(circle at 30% 40%, #0b0f2a, #020408); padding: 20px 12px 50px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-x: hidden; }
+    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.7; animation: twinkle 4s infinite alternate; }
+    @keyframes twinkle { 0% { opacity: 0.2; transform: scale(1); } 100% { opacity: 1; transform: scale(1.3); } }
+    .nebula { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0; }
     .nebula1 { top: -200px; left: -200px; background: radial-gradient(circle, #4a3aff 0%, transparent 70%); }
     .nebula2 { bottom: -200px; right: -200px; background: radial-gradient(circle, #9f2b68 0%, transparent 70%); }
-    .nebula3 { top: 40%; right: 10%; width: 400px; height: 400px; background: radial-gradient(circle, #2cd4ff 0%, transparent 70%); opacity: 0.3; }
-
-    /* Карточка */
-    .glass-card {
-      max-width: 740px;
-      width: 100%;
-      background: rgba(10, 15, 30, 0.65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 56px 24px 56px 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7),
-                  0 0 0 2px rgba(100, 180, 255, 0.3) inset,
-                  0 0 20px #3a6ea5 inset;
-      padding: 34px 30px 38px;
-      border: 1px solid rgba(160, 200, 255, 0.4);
-      position: relative;
-      z-index: 10;
-      transition: box-shadow 0.3s;
-    }
-
-    .glass-card:hover {
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px #5f9fff inset, 0 0 30px #4a8cff;
-    }
-
-    /* Декоративная линия */
-    .decor-line {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-
-    .decor-icon {
-      background: linear-gradient(145deg, #1e2a5a, #0e1a2b);
-      width: 60px;
-      height: 60px;
-      border-radius: 20px 8px 20px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 0 #0a121f, 0 0 20px #3f7fff;
-      border: 1px solid #6d94dd;
-      color: #e0f0ff;
-      font-size: 34px;
-      transform: rotate(3deg);
-    }
-
-    .decor-text {
-      font-weight: 800;
-      color: #b8d4ff;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 1rem;
-      background: rgba(20, 40, 70, 0.7);
-      padding: 10px 24px;
-      border-radius: 60px;
-      box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff;
-      border: 1px solid #5f9fff;
-      backdrop-filter: blur(5px);
-    }
-
-    /* Предупреждения */
-    .alert-panel {
-      background: rgba(30, 10, 30, 0.7);
-      border-left: 16px solid #ff4f75;
-      padding: 20px 22px 18px;
-      border-radius: 32px 16px 32px 16px;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 0 #4a1a2e, 0 0 20px #ff4f75;
-      border: 1px solid #ff8099;
-      backdrop-filter: blur(8px);
-    }
-
-    .alert-title {
-      font-weight: 900;
-      font-size: 1.8rem;
-      color: #ffb0c3;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px #ff2a5e;
-      flex-wrap: wrap;
-    }
-
-    .alert-content {
-      font-weight: 700;
-      color: #f0d0ff;
-      background: rgba(20, 5, 30, 0.8);
-      padding: 16px 20px;
-      border-radius: 24px;
-      font-size: 1rem;
-      line-height: 1.6;
-      border: 1px solid #c58aff;
-      box-shadow: inset 0 0 10px #7a2faf, 0 0 15px #a55cff;
-    }
-
-    .alert-content i {
-      background: #4a1e4a;
-      padding: 4px 12px;
-      border-radius: 40px;
-      color: #ffa0c0;
-      font-style: normal;
-      font-weight: 800;
-      margin: 0 2px;
-      display: inline-block;
-    }
-
-    /* Блок с паролем */
-    .credentials-wrapper {
-      background: rgba(5, 15, 30, 0.7);
-      border-radius: 40px 20px 40px 20px;
-      padding: 22px 22px 18px;
-      margin: 28px 0 22px;
-      border: 2px solid #3f8eff;
-      box-shadow: inset 0 0 20px #1e3a6b, 0 14px 0 #0a1620, 0 0 30px #2a6ebb;
-      position: relative;
-      user-select: none;
-      backdrop-filter: blur(8px);
-    }
-
-    .credentials-wrapper::after {
-      content: "🛡️ защищённый блок";
-      position: absolute;
-      bottom: -14px;
-      right: 22px;
-      background: #0e1a2f;
-      color: #aad0ff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 16px;
-      border-radius: 30px;
-      opacity: 0.9;
-      border: 1px solid #3f8eff;
-      box-shadow: 0 0 10px #3f8eff;
-      white-space: nowrap;
-    }
-
-    .cred-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      background: rgba(20, 35, 60, 0.9);
-      padding: 14px 24px;
-      border-radius: 60px 18px 60px 18px;
-      border: 2px solid #5f9fff;
-      box-shadow: 0 6px 0 #0a1620, inset 0 0 12px #1e4a8e;
-      gap: 12px;
-    }
-
-    .cred-label {
-      font-weight: 800;
-      min-width: 110px;
-      color: #c5deff;
-      font-size: 1.6rem;
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 8px #3f8eff;
-    }
-
-    .cred-value {
-      font-family: 'SF Mono', monospace;
-      font-size: 1.45rem;
-      font-weight: 700;
-      background: #0e1a2f;
-      padding: 12px 20px;
-      border-radius: 60px;
-      color: #e5f0ff;
-      word-break: break-all;
-      flex: 1;
-      border: 1px dashed #6ab0ff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      box-shadow: inset 0 0 15px #1e3a6b;
-    }
-
-    .copy-btn {
-      background: linear-gradient(to bottom, #2a5a9c, #1a3a6c);
-      border: none;
-      color: #e5f0ff;
-      font-weight: 800;
-      padding: 12px 22px;
-      border-radius: 60px;
-      margin-left: 0;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 6px 0 #0a1620, 0 0 12px #3f8eff;
-      transition: all 0.08s;
-      border: 1px solid #6ab0ff;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .copy-btn:active {
-      transform: translateY(5px);
-      box-shadow: 0 1px 0 #0a1620, 0 0 12px #3f8eff;
-    }
-
-    .meta-footer {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 12px 0 16px;
-      gap: 16px;
-    }
-
-    .update-chip {
-      background: #1a2e5a;
-      color: #d0e4ff;
-      padding: 12px 26px;
-      border-radius: 40px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 15px #3f7fff;
-      border: 1px solid #6d94dd;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .update-chip span {
-      background: #0a1620;
-      padding: 4px 16px;
-      border-radius: 40px;
-      color: #b0d0ff;
-      font-weight: 700;
-    }
-
-    .subscription-badge {
-      background: #2a1e4a;
-      padding: 12px 26px;
-      border-radius: 40px;
-      font-weight: 900;
-      color: #e0c0ff;
-      border: 2px solid #a06eff;
-      font-size: 1.2rem;
-      box-shadow: 0 6px 0 #1a0e2e, 0 0 15px #a06eff;
-    }
-
-    .notice-message {
-      margin: 22px 0 16px;
-      background: rgba(20, 20, 50, 0.7);
-      padding: 18px 22px;
-      border-radius: 28px 12px 28px 12px;
-      color: #c5d5ff;
-      font-weight: 700;
-      border: 2px solid #4f8eff;
-      backdrop-filter: blur(8px);
-      font-size: 1rem;
-      box-shadow: inset 0 0 15px #1e3a6b;
-      line-height: 1.5;
-    }
-
-    .code-hint-box {
-      margin: 16px 0 10px;
-      padding: 14px 18px;
-      background: rgba(10, 5, 30, 0.8);
-      border: 2px solid #b84cff;
-      border-radius: 24px 8px 24px 8px;
-      box-shadow: 0 5px 0 #2a0e4a, inset 0 0 15px #7a2faf, 0 0 15px #b84cff;
-      color: #f0d0ff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-align: center;
-      letter-spacing: 0.3px;
-      backdrop-filter: blur(4px);
-    }
-
-    .secret-section {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .invisible-trigger {
-      background: transparent;
-      border: none;
-      color: #5f9fff;
-      font-size: 10px;
-      padding: 8px 20px;
-      border-radius: 60px;
-      cursor: default;
-      opacity: 0.1;
-      transition: opacity 0.3s;
-      font-weight: 300;
-      letter-spacing: 3px;
-    }
-
-    .invisible-trigger:hover {
-      opacity: 0.5;
-      cursor: pointer;
-      background: rgba(100, 150, 255, 0.15);
-      box-shadow: 0 0 10px #3f8eff;
-    }
-
-    .fake-log {
-      font-size: 10px;
-      text-align: right;
-      opacity: 0.7;
-      margin-top: 12px;
-      color: #a0c0ff;
-      font-weight: 500;
-    }
-
-    /* Модалки */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 5, 20, 0.85);
-      backdrop-filter: blur(10px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .modal-card {
-      background: rgba(15, 25, 45, 0.95);
-      max-width: 440px;
-      width: 100%;
-      padding: 32px 28px;
-      border-radius: 48px 20px 48px 20px;
-      border: 2px solid #4f8eff;
-      box-shadow: 0 22px 0 #0a1620, 0 0 40px #3f8eff;
-      animation: modalPop 0.2s;
-      backdrop-filter: blur(20px);
-    }
-
-    @keyframes modalPop {
-      0% { transform: scale(0.95); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-card h3 {
-      color: #c0dcff;
-      font-size: 1.9rem;
-      margin-bottom: 24px;
-      font-weight: 800;
-      text-shadow: 0 0 10px #3f8eff;
-    }
-
-    .modal-input {
-      width: 100%;
-      padding: 15px 18px;
-      border-radius: 50px;
-      border: 2px solid #3f8eff;
-      background: #0e1a2f;
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-      font-weight: 600;
-      outline: none;
-      color: #e5f0ff;
-      box-shadow: inset 0 0 12px #1e3a6b;
-    }
-
-    .modal-input:focus {
-      border-color: #9fc3ff;
-      box-shadow: 0 0 20px #3f8eff, inset 0 0 12px #1e3a6b;
-    }
-
-    .modal-btn {
-      background: linear-gradient(to bottom, #2a5a9c, #1a3a6c);
-      border: none;
-      color: white;
-      font-weight: 800;
-      padding: 16px 20px;
-      border-radius: 60px;
-      width: 100%;
-      font-size: 1.25rem;
-      box-shadow: 0 8px 0 #0a1620, 0 0 15px #3f8eff;
-      cursor: pointer;
-      transition: 0.08s;
-      border: 1px solid #6ab0ff;
-      margin-top: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .modal-btn.secondary {
-      background: #3a2a6c;
-      box-shadow: 0 5px 0 #1a0e2e, 0 0 15px #a06eff;
-      margin-top: 16px;
-      font-size: 1.1rem;
-    }
-
-    .modal-btn:active {
-      transform: translateY(5px);
-      box-shadow: 0 3px 0 #0a1620, 0 0 20px #3f8eff;
-    }
-
-    .close-icon {
-      float: right;
-      font-size: 34px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #9fc3ff;
-      margin-top: -10px;
-      text-shadow: 0 0 8px #3f8eff;
-    }
-
-    .error-msg {
-      color: #ff8099;
-      font-weight: bold;
-      margin: 12px 0 0;
-    }
-
-    .save-hint {
-      font-size: 12px;
-      color: #a0c0ff;
-      margin-top: 8px;
-      font-weight: 500;
-    }
-
-    /* ========= АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ ========= */
-    @media (max-width: 768px) {
-      body {
-        padding: 16px 12px 32px;
-      }
-      .glass-card {
-        padding: 24px 20px 28px;
-        border-radius: 48px 20px 48px 20px;
-      }
-      .decor-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 28px;
-      }
-      .decor-text {
-        font-size: 0.85rem;
-        padding: 8px 18px;
-        letter-spacing: 2px;
-      }
-      .alert-title {
-        font-size: 1.4rem;
-        gap: 8px;
-      }
-      .alert-content {
-        padding: 14px 16px;
-        font-size: 0.9rem;
-      }
-      .credentials-wrapper {
-        padding: 18px 16px 14px;
-        margin: 20px 0 18px;
-      }
-      .credentials-wrapper::after {
-        font-size: 9px;
-        padding: 4px 12px;
-        right: 16px;
-        bottom: -12px;
-        white-space: nowrap;
-      }
-      .cred-row {
-        padding: 12px 16px;
-        gap: 10px;
-      }
-      .cred-label {
-        font-size: 1.3rem;
-        min-width: 90px;
-      }
-      .cred-value {
-        font-size: 1.1rem;
-        padding: 10px 16px;
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        gap: 12px;
-      }
-      .copy-btn {
-        margin-left: 0;
-        justify-content: center;
-        padding: 10px 18px;
-        font-size: 0.9rem;
-        width: 100%;
-        white-space: nowrap;
-      }
-      .meta-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-      }
-      .update-chip, .subscription-badge {
-        justify-content: center;
-        text-align: center;
-        font-size: 0.9rem;
-        padding: 10px 20px;
-      }
-      .subscription-badge {
-        font-size: 1rem;
-      }
-      .notice-message {
-        font-size: 0.9rem;
-        padding: 14px 18px;
-      }
-      .code-hint-box {
-        font-size: 0.85rem;
-        padding: 12px 14px;
-      }
-      .modal-card {
-        padding: 24px 20px;
-      }
-      .modal-card h3 {
-        font-size: 1.6rem;
-      }
-      .modal-btn {
-        font-size: 1.1rem;
-        padding: 14px 16px;
-      }
-      .modal-btn.secondary {
-        font-size: 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .glass-card {
-        padding: 20px 16px 24px;
-      }
-      .decor-line {
-        gap: 10px;
-      }
-      .decor-icon {
-        width: 44px;
-        height: 44px;
-        font-size: 24px;
-      }
-      .decor-text {
-        font-size: 0.7rem;
-        padding: 6px 14px;
-      }
-      .alert-title {
-        font-size: 1.2rem;
-      }
-      .alert-content {
-        font-size: 0.8rem;
-        padding: 12px 14px;
-      }
-      .cred-label {
-        font-size: 1.2rem;
-        min-width: 80px;
-      }
-      .cred-value {
-        font-size: 1rem;
-        padding: 8px 12px;
-      }
-      .copy-btn {
-        padding: 8px 14px;
-        font-size: 0.85rem;
-      }
-      .update-chip, .subscription-badge {
-        font-size: 0.8rem;
-        padding: 8px 16px;
-      }
-      .update-chip span {
-        font-size: 0.85rem;
-      }
-      .notice-message {
-        font-size: 0.8rem;
-        padding: 12px 14px;
-      }
-      .code-hint-box {
-        font-size: 0.75rem;
-      }
-      .modal-card {
-        padding: 20px 16px;
-      }
-      .modal-card h3 {
-        font-size: 1.4rem;
-      }
-      .modal-input {
-        padding: 12px 14px;
-        font-size: 0.95rem;
-      }
-      .modal-btn {
-        font-size: 1rem;
-        padding: 12px 14px;
-      }
-      .close-icon {
-        font-size: 28px;
-      }
-      .invisible-trigger {
-        padding: 6px 16px;
-      }
-    }
-
-    /* Для планшетов в альбомной ориентации — сохраняем компактность */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .glass-card {
-        max-width: 85%;
-      }
-      .cred-value {
-        font-size: 1.3rem;
-      }
-    }
+    .nebula3 { top: 50%; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, #2cd4ff 0%, transparent 70%); opacity: 0.3; }
+    .cosmic-container { max-width: 900px; width: 100%; position: relative; z-index: 5; }
+    .glass-card { background: rgba(10, 15, 30, 0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-radius: 48px 20px 48px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 2px rgba(100,180,255,0.2) inset, 0 0 25px #2a4a8a inset; padding: 30px 24px; border: 1px solid rgba(120, 180, 255, 0.3); margin-bottom: 30px; transition: box-shadow 0.2s; }
+    .glass-card:hover { box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 0 2px #5f9fff inset, 0 0 30px #4a8cff; }
+    .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #b8d4ff; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; text-shadow: 0 0 12px #3f7fff; border-bottom: 2px dashed #3f6a9c; padding-bottom: 12px; }
+    .section-title i { font-size: 2rem; }
+    .secure-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .secure-icon { background: linear-gradient(145deg, #1e2a5a, #0e1a2b); width: 55px; height: 55px; border-radius: 18px 8px 18px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #0a121f, 0 0 20px #3f7fff; border: 1px solid #6d94dd; color: #e0f0ff; font-size: 32px; transform: rotate(3deg); }
+    .secure-text { font-weight: 800; color: #b8d4ff; text-transform: uppercase; letter-spacing: 3px; font-size: 1.1rem; background: rgba(20,40,70,0.7); padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff; border: 1px solid #5f9fff; backdrop-filter: blur(5px); }
+    .password-wrapper { background: rgba(5,15,30,0.7); border-radius: 40px 20px 40px 20px; padding: 18px 20px; margin: 20px 0 10px; border: 2px solid #3f8eff; box-shadow: inset 0 0 20px #1e3a6b, 0 8px 0 #0a1620, 0 0 20px #2a6ebb; position: relative; user-select: none; }
+    .password-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -12px; right: 20px; background: #0e1a2f; color: #aad0ff; font-size: 10px; font-weight: 600; padding: 4px 14px; border-radius: 30px; border: 1px solid #3f8eff; box-shadow: 0 0 8px #3f8eff; }
+    .pass-row { display: flex; align-items: center; flex-wrap: wrap; background: rgba(20,35,60,0.9); padding: 12px 20px; border-radius: 60px 18px 60px 18px; border: 2px solid #5f9fff; box-shadow: 0 6px 0 #0a1620, inset 0 0 12px #1e4a8e; }
+    .pass-label { font-weight: 800; min-width: 100px; color: #c5deff; font-size: 1.5rem; text-shadow: 0 0 8px #3f8eff; }
+    .pass-value { font-family: monospace; font-size: 1.4rem; font-weight: 700; background: #0e1a2f; padding: 10px 18px; border-radius: 60px; color: #e5f0ff; word-break: break-all; flex: 1; border: 1px dashed #6ab0ff; display: flex; align-items: center; justify-content: space-between; box-shadow: inset 0 0 12px #1e3a6b; }
+    .copy-btn { background: linear-gradient(to bottom, #2a5a9c, #1a3a6c); border: none; color: #e5f0ff; font-weight: 800; padding: 10px 18px; border-radius: 60px; margin-left: 15px; cursor: pointer; box-shadow: 0 5px 0 #0a1620, 0 0 10px #3f8eff; transition: all 0.08s; border: 1px solid #6ab0ff; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; }
+    .copy-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0a1620, 0 0 12px #3f8eff; }
+    .meta-info { display: flex; flex-wrap: wrap; justify-content: space-between; margin: 15px 0 10px; }
+    .update-badge { background: #1a2e5a; color: #d0e4ff; padding: 10px 20px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff; border: 1px solid #6d94dd; }
+    .sub-badge { background: #2a1e4a; padding: 10px 22px; border-radius: 40px; font-weight: 900; color: #e0c0ff; border: 2px solid #a06eff; font-size: 1.1rem; box-shadow: 0 5px 0 #1a0e2e, 0 0 12px #a06eff; }
+    .instruction-block { color: #d0e0ff; }
+    .warning-box { background: rgba(40, 10, 20, 0.6); border-left: 10px solid #ff4f75; padding: 18px 20px; border-radius: 24px 12px 24px 12px; margin-bottom: 25px; border: 1px solid #ff8099; box-shadow: 0 6px 0 #4a1a2e, 0 0 18px #ff4f75; }
+    .warning-title { font-weight: 900; font-size: 1.6rem; color: #ffb0c3; margin-bottom: 12px; text-transform: uppercase; text-shadow: 0 0 8px #ff2a5e; }
+    .list-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; font-size: 1rem; line-height: 1.5; }
+    .list-icon { font-size: 1.5rem; min-width: 32px; text-align: center; }
+    .divider { height: 2px; background: linear-gradient(90deg, transparent, #4f8eff, transparent); margin: 25px 0; }
+    .link-button { display: inline-block; background: #2a5a9c; color: white; padding: 12px 24px; border-radius: 60px; text-decoration: none; font-weight: 700; box-shadow: 0 6px 0 #0a1620, 0 0 15px #3f8eff; border: 1px solid #6ab0ff; margin-top: 10px; transition: 0.1s; }
+    .link-button:active { transform: translateY(4px); box-shadow: 0 2px 0 #0a1620, 0 0 15px #3f8eff; }
+    .secret-area { margin-top: 30px; display: flex; justify-content: flex-end; }
+    .secret-btn { background: transparent; border: none; color: #5f9fff; font-size: 11px; padding: 4px 16px; border-radius: 60px; opacity: 0.1; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; cursor: default; }
+    .secret-btn:hover { opacity: 0.5; cursor: pointer; background: rgba(100,150,255,0.15); box-shadow: 0 0 10px #3f8eff; }
+    .fake-log { text-align: right; font-size: 10px; opacity: 0.7; margin-top: 10px; color: #a0c0ff; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,5,20,0.8); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-card { background: rgba(15,25,45,0.95); max-width: 420px; width: 90%; padding: 30px 25px; border-radius: 48px 20px 48px 20px; border: 2px solid #4f8eff; box-shadow: 0 20px 0 #0a1620, 0 0 40px #3f8eff; backdrop-filter: blur(20px); animation: modalPop 0.2s; }
+    @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+    .modal-card h3 { color: #c0dcff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; text-shadow: 0 0 10px #3f8eff; }
+    .modal-input { width: 100%; padding: 14px 18px; border-radius: 50px; border: 2px solid #3f8eff; background: #0e1a2f; font-size: 1rem; margin-bottom: 18px; font-weight: 600; outline: none; color: #e5f0ff; box-shadow: inset 0 0 12px #1e3a6b; }
+    .modal-btn { background: linear-gradient(to bottom, #2a5a9c, #1a3a6c); border: none; color: white; font-weight: 800; padding: 14px 20px; border-radius: 60px; width: 100%; font-size: 1.2rem; box-shadow: 0 6px 0 #0a1620, 0 0 12px #3f8eff; cursor: pointer; border: 1px solid #6ab0ff; margin-top: 8px; text-transform: uppercase; }
+    .modal-btn.secondary { background: #3a2a6c; box-shadow: 0 4px 0 #1a0e2e, 0 0 12px #a06eff; margin-top: 14px; font-size: 1rem; }
+    .modal-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #0a1620, 0 0 15px #3f8eff; }
+    .close-icon { float: right; font-size: 32px; font-weight: bold; cursor: pointer; color: #9fc3ff; margin-top: -8px; }
+    .error-msg { color: #ff8099; font-weight: bold; margin: 10px 0 0; }
+    @media (max-width: 600px) { body { padding: 16px 8px 40px; } .glass-card { padding: 22px 16px; border-radius: 36px 16px 36px 16px; } .section-title { font-size: 1.5rem; } .secure-text { font-size: 0.9rem; padding: 8px 16px; } .pass-value { font-size: 1.1rem; } .copy-btn { padding: 8px 14px; font-size: 0.8rem; } }
+    @media (max-width: 400px) { .pass-row { flex-direction: column; align-items: stretch; gap: 10px; } .pass-value { justify-content: center; } }
   </style>
 </head>
 <body>
-<!-- Звёзды -->
 <div class="stars" id="starsContainer"></div>
 <div class="nebula nebula1"></div>
 <div class="nebula nebula2"></div>
 <div class="nebula nebula3"></div>
 
-<div class="glass-card">
-  <div class="decor-line">
-    <div class="decor-icon">🔐</div>
-    <div class="decor-text">ПРОДАВЕЦ:GOGUK2009 , ПЕРЕПРОДАЖА ЗАПРЕЩЕНА</div>
-  </div>
+<div class="cosmic-container">
+  <!-- КАРТОЧКА: ПАРОЛЬ И ЗАЩИЩЁННЫЙ ДОСТУП -->
+  <div class="glass-card">
+    <div class="secure-header">
+      <div class="secure-icon">🔐</div>
+      <div class="secure-text">ПАРОЛЬ ДЛЯ CHATGPT</div>
+    </div>
 
-  <div class="alert-panel">
-    <div class="alert-title"><span>🚫⚠️</span> НАРУШЕНИЕ = БАН</div>
-    <div class="alert-content">
-      ❗ Пожалуйста не меняйте пароль и др. иначе лишитесь аккаунта, плюс напишу в поддержку что вы нарушаете правила платформы и вас блокнут на FunPay!!<br>
-      <i>!!НЕ СПАМЬТЕ В ЧАТАХ!!</i><br>
-      <i>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</i>
+    <div class="password-wrapper" oncontextmenu="return false;">
+      <div class="pass-row">
+        <span class="pass-label">🌠 Пароль</span>
+        <span class="pass-value" id="displayPasswordContainer">Загрузка...</span>
+      </div>
+    </div>
+
+    <div class="meta-info">
+      <div class="update-badge">
+        🔄 изменено <span id="lastUpdateDate">...</span>
+      </div>
+      <div class="sub-badge">✅ Подписка до 10.05</div>
+    </div>
+
+    <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
+
+    <div class="secret-area">
+      <button class="secret-btn" id="secretEditTrigger">⚡⚡⚡</button>
     </div>
   </div>
 
-  <div class="credentials-wrapper" oncontextmenu="return false;">
-    <div class="cred-row">
-      <span class="cred-label">🌠 Пароль</span>
-      <span class="cred-value" id="displayPasswordContainer">Загрузка...</span>
+  <!-- КАРТОЧКА: ИНСТРУКЦИЯ (без изменений) -->
+  <div class="glass-card instruction-block">
+    <div class="section-title"><span>📘</span> ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ</div>
+
+    <div class="warning-box" style="border-left-color: #ff3b3b; box-shadow: 0 6px 0 #4a1a2e, 0 0 20px #ff3b3b;">
+      <div class="warning-title" style="color: #ff9e9e;">‼️ НАРУШЕНИЕ = БАН</div>
+      <div class="list-item"><span class="list-icon">❗</span><span>Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!</span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕ СПАМЬТЕ В ЧАТАХ!!</strong></span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</strong></span></div>
     </div>
-  </div>
 
-  <div class="meta-footer">
-    <div class="update-chip">
-      🔄 изменено <span id="lastUpdateDate">...</span>
+    <div class="warning-box">
+      <div class="warning-title">‼️ КОД В АККАУНТ</div>
+      <div class="list-item"><span class="list-icon">🔑</span><span>Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style="color:#aad0ff;">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.</span></div>
+      <div class="list-item"><span class="list-icon">🔄</span><span>Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.</span></div>
     </div>
-    <div class="subscription-badge">✅ Подписка до 10.05</div>
-  </div>
 
-  <div class="notice-message">
-    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя умнее остальных.
-  </div>
+    <div class="divider"></div>
 
-  <div class="code-hint-box">
-    ❗️❗️ Если код один и тот же, нажмите на «Отправить код» снова. Если нету, обновите сайт или закройте полностью страницу и откройте новую вкладку . Также может вылететь аккаунт при первом заходе (из-за протокола безопастности chatgpt) ❗️❗️
-  </div>
+    <div class="section-title" style="font-size:1.5rem; margin-top:10px;"><span>⚠️</span> ВАЖНОЕ</div>
+    <div class="list-item"><span class="list-icon">🚫</span><span>Не меняйте пароль и данные аккаунта.</span></div>
+    <div class="list-item"><span class="list-icon">🚫</span><span>Не изменяйте настройки безопасности.</span></div>
+    <div class="list-item"><span class="list-icon">🔃</span><span>Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).</span></div>
+    <div class="list-item"><span class="list-icon">👥</span><span>Диалоги и история могут быть общими.</span></div>
+    <div class="list-item"><span class="list-icon">🌍</span><span>Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\_(ツ)_/¯</span></div>
+    <div class="list-item"><span class="list-icon">🔄</span><span>Если данные будут изменены, доступ может быть утерян без компенсации.</span></div>
+    <div class="list-item"><span class="list-icon">📃</span><span>Аккаунтом пользуются более 75 человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия — 12 дней.</span></div>
+    <div class="list-item"><span class="list-icon">🤖</span><span>Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.</span></div>
+    <div class="list-item"><span class="list-icon">💸</span><span>Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!</span></div>
 
-  <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>⭐️</span> ПРОСЬБА</div>
+    <div class="list-item"><span class="list-icon">💬</span><span>Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.</span></div>
 
-  <div class="secret-section">
-    <button class="invisible-trigger" id="secretEditTrigger">⚡⚡⚡</button>
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>😴</span> ПОДДЕРЖКА</div>
+    <div class="list-item"><span class="list-icon">🕒</span><span>Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!</span></div>
+
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>🔰</span> ЛИЧНЫЙ АККАУНТ</div>
+    <div class="list-item"><span class="list-icon">✨</span><span>Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:</span></div>
+    <a href="https://clck.ru/3T4pGg" target="_blank" class="link-button">КУПИТЬ💸</a>
+
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>❓</span> ПОДПИСКА МОЖЕТ СЛЕТЕТЬ</div>
+    <div class="list-item"><span class="list-icon">⚠️</span><span>— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.</span></div>
   </div>
 </div>
 
@@ -722,7 +150,7 @@
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">&times;</span>
-    <h3>🌌 Доступ к управлению</h3>
+    <h3>🌌 Доступ</h3>
     <p style="margin-bottom:16px; color:#b8d4ff; font-weight:600;">Введите мастер-пароль</p>
     <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
     <button class="modal-btn" id="submitMasterPass">Проверить</button>
@@ -734,22 +162,24 @@
 <div class="modal-overlay" id="editModal">
   <div class="modal-card">
     <span class="close-icon" id="closeEditModal">&times;</span>
-    <h3>✏️ Редактирование</h3>
+    <h3>✏️ Изменить данные</h3>
     <label style="font-weight:700; color:#b8d4ff;">Новый пароль:</label>
     <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
     <label style="font-weight:700; color:#b8d4ff;">Дата изменения (дд.мм):</label>
     <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5">
     <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
-    <p class="save-hint">Изменения сохраняются в браузере и будут действовать после обновления.</p>
+    <p style="color:#a0c0ff; font-size:12px; margin-top:10px;">Изменения сохранятся в браузере</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
   </div>
 </div>
 
 <script>
-  (function() {
+  (function(){
+    "use strict";
+
     // Генерация звёзд
     const starsContainer = document.getElementById('starsContainer');
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
       const size = Math.random() * 3 + 1;
@@ -758,65 +188,91 @@
       star.style.left = Math.random() * 100 + '%';
       star.style.top = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 5 + 's';
-      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
       starsContainer.appendChild(star);
     }
 
-    // НОВЫЕ УЧЁТНЫЕ ДАННЫЕ (пароль и дата изменены по запросу)
-    const NEW_DEFAULT_PASSWORD = '9Iw_-A2eIHje';
-    const NEW_DEFAULT_DATE = '13.04';
-    const CRED_VERSION = '2';   // версия хранилища
+    // ---------- ЗАЩИЩЁННОЕ ХРАНЕНИЕ (localStorage с шифрованием) ----------
+    const SECRET_SALT = 'CosmoSalt_2025';
+    function encrypt(data) { return btoa(unescape(encodeURIComponent(data + SECRET_SALT))); }
+    function decrypt(enc) {
+      try {
+        const dec = decodeURIComponent(escape(atob(enc)));
+        if (dec.endsWith(SECRET_SALT)) return dec.slice(0, -SECRET_SALT.length);
+      } catch(e) {}
+      return null;
+    }
+    function saveSecure(pass, date) {
+      const payload = JSON.stringify({ p: pass, d: date });
+      localStorage.setItem('fp_sec', encrypt(payload));
+      localStorage.setItem('fp_hash', btoa(pass + date + SECRET_SALT));
+    }
+    function loadSecure() {
+      const enc = localStorage.getItem('fp_sec');
+      const hash = localStorage.getItem('fp_hash');
+      if (!enc || !hash) return null;
+      const dec = decrypt(enc);
+      if (!dec) return null;
+      try {
+        const data = JSON.parse(dec);
+        if (btoa(data.p + data.d + SECRET_SALT) !== hash) return null;
+        return data;
+      } catch(e) { return null; }
+    }
 
-    let currentPassword = NEW_DEFAULT_PASSWORD;
-    let currentUpdateDate = NEW_DEFAULT_DATE;
+    // ---------- НОВЫЕ ЗНАЧЕНИЯ ПО УМОЛЧАНИЮ (меняйте здесь) ----------
+    const DEFAULT_PASS = '9Iw_-A2eIHje';
+    const DEFAULT_DATE = '13.04';
 
-    const passwordContainer = document.getElementById('displayPasswordContainer');
-    const lastUpdateSpan = document.getElementById('lastUpdateDate');
+    let currentPass = DEFAULT_PASS;
+    let currentDate = DEFAULT_DATE;
+
+    const passContainer = document.getElementById('displayPasswordContainer');
+    const dateSpan = document.getElementById('lastUpdateDate');
 
     function render() {
-      passwordContainer.innerHTML = '';
-      passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
+      passContainer.innerHTML = '';
+      passContainer.appendChild(document.createTextNode(currentPass + ' '));
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
-      btn.setAttribute('data-copy', currentPassword);
-      btn.innerHTML = '📋 Копировать';
-      passwordContainer.appendChild(btn);
-      lastUpdateSpan.textContent = currentUpdateDate;
+      btn.setAttribute('data-copy', currentPass);
+      btn.innerHTML = 'КОПИРОВАТЬ';
+      passContainer.appendChild(btn);
+      dateSpan.textContent = currentDate;
     }
 
-    function saveToLocalStorage() {
-      localStorage.setItem('funpay_password', currentPassword);
-      localStorage.setItem('funpay_date', currentUpdateDate);
-      localStorage.setItem('funpay_cred_version', CRED_VERSION);
-    }
-
-    function initializeCredentials() {
-      const storedVersion = localStorage.getItem('funpay_cred_version');
-      const storedPass = localStorage.getItem('funpay_password');
-      const storedDate = localStorage.getItem('funpay_date');
-
-      if (storedVersion === CRED_VERSION && storedPass && storedDate) {
-        currentPassword = storedPass;
-        currentUpdateDate = storedDate;
+    // ---------- ИНИЦИАЛИЗАЦИЯ С АВТОМАТИЧЕСКИМ СБРОСОМ ПРИ ИЗМЕНЕНИИ DEFAULT ----------
+    (function init() {
+      const secure = loadSecure();
+      // Если в localStorage есть данные и они совпадают с текущими DEFAULT – используем их.
+      if (secure && secure.p === DEFAULT_PASS && secure.d === DEFAULT_DATE) {
+        currentPass = secure.p;
+        currentDate = secure.d;
         render();
         return;
       }
       
-      // Устанавливаем новые значения по умолчанию
-      currentPassword = NEW_DEFAULT_PASSWORD;
-      currentUpdateDate = NEW_DEFAULT_DATE;
-      saveToLocalStorage();
-      render();
-    }
-
-    initializeCredentials();
+      // Если данных нет или они не совпадают с DEFAULT – пробуем подгрузить config.json (опционально)
+      fetch('./config.json?t=' + Date.now())
+        .then(resp => resp.ok ? resp.json() : Promise.reject())
+        .then(cfg => {
+          currentPass = cfg.password || DEFAULT_PASS;
+          currentDate = cfg.updateDate || DEFAULT_DATE;
+        })
+        .catch(() => {
+          currentPass = DEFAULT_PASS;
+          currentDate = DEFAULT_DATE;
+        })
+        .finally(() => {
+          render();
+          saveSecure(currentPass, currentDate);   // сохраняем актуальные значения
+        });
+    })();
 
     // Копирование
-    document.querySelector('.glass-card').addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
       const text = btn.getAttribute('data-copy');
-      if (!text || text === 'Загрузка...') return;
       navigator.clipboard?.writeText(text).then(() => {
         btn.innerHTML = '✅ Скопировано!';
         setTimeout(() => btn.innerHTML = 'КОПИРОВАТЬ', 1200);
@@ -832,7 +288,7 @@
       });
     });
 
-    // Админ-панель (мастер-пароль)
+    // Скрытая кнопка и модалки
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
@@ -852,8 +308,8 @@
     document.getElementById('submitMasterPass').addEventListener('click', () => {
       if (masterInput.value === MASTER) {
         closeAuth();
-        document.getElementById('newPasswordField').value = currentPassword;
-        document.getElementById('newDateField').value = currentUpdateDate;
+        document.getElementById('newPasswordField').value = currentPass;
+        document.getElementById('newDateField').value = currentDate;
         editModal.style.display = 'flex';
       } else {
         authError.textContent = '❌ Неверный пароль!';
@@ -871,11 +327,10 @@
       const newDate = document.getElementById('newDateField').value.trim();
       if (!newPass || !newDate) return alert('Заполните все поля');
       if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 13.04)');
-      
-      currentPassword = newPass;
-      currentUpdateDate = newDate;
+      currentPass = newPass;
+      currentDate = newDate;
       render();
-      saveToLocalStorage();
+      saveSecure(currentPass, currentDate);
       closeEdit();
     });
 
@@ -883,8 +338,10 @@
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
-    
-    document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+
+    document.querySelector('.password-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('selectstart', e => { if (!e.target.matches('input,textarea')) e.preventDefault(); });
+    setInterval(() => { const s = Date.now(); debugger; if (Date.now() - s > 100) console.log('%c🛡️ Защита активна', 'color:#ffb0c3'); }, 2000);
   })();
 </script>
 </body>
